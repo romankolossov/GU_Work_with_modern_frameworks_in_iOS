@@ -18,8 +18,8 @@ class MapViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    // Центр Москвы
-    private let coordinate = CLLocationCoordinate2D(latitude: 55.753215, longitude: 37.622504)
+    private var marker: GMSMarker?
+    private let coordinate = CLLocationCoordinate2D(latitude: 55.753215, longitude: 37.622504) // Центр Москвы
 
     // MARK: - Lifecycle
 
@@ -38,18 +38,57 @@ class MapViewController: UIViewController {
         mapView.animate(toLocation: coordinate)
     }
 
+    @objc private func toggleMark() {
+        guard marker == nil else {
+            removeMark()
+            return
+        }
+        addMark()
+    }
+
     // MARK: - Private methods
+
+    private func addMark() {
+//        let rect = CGRect(x: 0, y: 0, width: 20, height: 20)
+//        let view = UIView(frame: rect)
+//        view.backgroundColor = .red
+
+        let marker = GMSMarker(position: coordinate)
+        marker.icon = GMSMarker.markerImage(with: .green)
+        // marker.icon = UIImage(systemName: "figure.walk") // marker as an image
+        // marker.iconView = view // marker as a red rect
+
+        marker.title = "Hello"
+        marker.snippet = "Red Square"
+
+        marker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
+
+        marker.map = mapView
+        self.marker = marker
+    }
+
+    private func removeMark() {
+        marker?.map = nil
+        marker = nil
+    }
 
     // MARK: Configure
 
     private func configureNavigationVC() {
         let goToRedSquareItem = UIBarButtonItem(
             image: UIImage(systemName: "figure.walk"),
-            style: .done,
+            style: .plain,
             target: self,
             action: #selector(goToRedSquare)
         )
+        let addMarkItem = UIBarButtonItem(
+            image: UIImage(systemName: "checkmark.seal"),
+            style: .plain,
+            target: self,
+            action: #selector(toggleMark)
+        )
         navigationItem.rightBarButtonItem = goToRedSquareItem
+        navigationItem.leftBarButtonItem = addMarkItem
     }
 
     private func configureMapVC() {
