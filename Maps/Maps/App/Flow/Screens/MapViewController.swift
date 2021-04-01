@@ -10,6 +10,12 @@ import GoogleMaps
 
 class MapViewController: UIViewController {
 
+    // MARK: - Public properties
+    public var publicMapView: GMSMapView {
+        mapView
+    }
+    var manualMarker: GMSMarker?
+
     // MARK: - Private properties
 
     private lazy var mapView: GMSMapView = {
@@ -117,6 +123,7 @@ class MapViewController: UIViewController {
         let camera = GMSCameraPosition.camera(withTarget: coordinate, zoom: 17)
         // Устанавливаем камеру для карты
         mapView.camera = camera
+        mapView.delegate = self
     }
 
     private func configureMapStyle() {
