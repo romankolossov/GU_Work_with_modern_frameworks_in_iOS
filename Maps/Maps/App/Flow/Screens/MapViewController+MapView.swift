@@ -22,3 +22,15 @@ extension MapViewController: GMSMapViewDelegate {
         manualMarker.position = coordinate
     }
 }
+
+extension MapViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let first = locations.first else { return }
+        Logger.viewCycle.debug("\(first)")
+    }
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        Logger.viewCycle.debug("\(error.localizedDescription)")
+    }
+
+}

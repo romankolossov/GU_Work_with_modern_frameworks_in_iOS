@@ -22,10 +22,13 @@ class MapViewController: UIViewController {
         let view = GMSMapView()
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.delegate = self
         return view
     }()
     private var marker: GMSMarker?
     private let coordinate = CLLocationCoordinate2D(latitude: 55.753215, longitude: 37.622504) // Центр Москвы
+
+    private var locationManager: CLLocationManager?
 
     // MARK: - Lifecycle
 
@@ -36,6 +39,8 @@ class MapViewController: UIViewController {
 
         configureMap()
         configureMapStyle()
+
+        configureLocationManager()
     }
 
     // MARK: - Actions
@@ -44,57 +49,64 @@ class MapViewController: UIViewController {
         mapView.animate(toLocation: coordinate)
     }
 
-    @objc private func toggleMark() {
+    @objc private func toggleMarker() {
         guard marker == nil else {
-            removeMark()
+            removeMarker()
             return
         }
-        addMark()
+        addMarker()
+    }
+
+    @objc func currentLocation() {
+        locationManager?.requestLocation()
+    }
+
+    @objc func updateLocation() {
+        locationManager?.startUpdatingLocation()
+    }
+
+    @objc func finishUpdateLocation() {
+        locationManager?.stopUpdatingLocation()
     }
 
     // MARK: - Private methods
-
-    private func addMark() {
-//        let rect = CGRect(x: 0, y: 0, width: 20, height: 20)
-//        let view = UIView(frame: rect)
-//        view.backgroundColor = .red
-
-        let marker = GMSMarker(position: coordinate)
-        marker.icon = GMSMarker.markerImage(with: .green)
-        // marker.icon = UIImage(systemName: "figure.walk") // marker as an image
-        // marker.iconView = view // marker as a red rect
-
-        marker.title = "Hello"
-        marker.snippet = "Red Square"
-
-        marker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
-
-        marker.map = mapView
-        self.marker = marker
-    }
-
-    private func removeMark() {
-        marker?.map = nil
-        marker = nil
-    }
 
     // MARK: Configure
 
     private func configureNavigationVC() {
         let goToRedSquareItem = UIBarButtonItem(
-            image: UIImage(systemName: "figure.walk"),
+            image: UIImage(systemName: "arrow.down.right.and.arrow.up.left"),
             style: .plain,
             target: self,
             action: #selector(goToRedSquare)
         )
-        let addMarkItem = UIBarButtonItem(
+        let currentLocationItem = UIBarButtonItem(
+            image: UIImage(systemName: "location"),
+            style: .plain,
+            target: self,
+            action: #selector(currentLocation)
+        )
+        navigationItem.rightBarButtonItems = [goToRedSquareItem, currentLocationItem]
+
+        let toggleMarkerItem = UIBarButtonItem(
             image: UIImage(systemName: "checkmark.seal"),
             style: .plain,
             target: self,
-            action: #selector(toggleMark)
+            action: #selector(toggleMarker)
         )
-        navigationItem.rightBarButtonItem = goToRedSquareItem
-        navigationItem.leftBarButtonItem = addMarkItem
+        let updateLocationItem = UIBarButtonItem(
+            image: UIImage(systemName: "arrow.triangle.2.circlepath"),
+            style: .plain,
+            target: self,
+            action: #selector(updateLocation)
+        )
+        let finisUpdateLocationItem = UIBarButtonItem(
+            image: UIImage(systemName: "stop.circle"),
+            style: .plain,
+            target: self,
+            action: #selector(finishUpdateLocation)
+        )
+        navigationItem.leftBarButtonItems = [toggleMarkerItem, updateLocationItem, finisUpdateLocationItem]
     }
 
     private func configureMapVC() {
@@ -123,7 +135,6 @@ class MapViewController: UIViewController {
         let camera = GMSCameraPosition.camera(withTarget: coordinate, zoom: 17)
         // Устанавливаем камеру для карты
         mapView.camera = camera
-        mapView.delegate = self
     }
 
     private func configureMapStyle() {
@@ -324,5 +335,35 @@ class MapViewController: UIViewController {
                print(error)
            }
        }
+
+    private func configureLocationManager() {
+        locationManager = CLLocationManager()
+        locationManager?.requestWhenInUseAuthorization()
+        locationManager?.delegate = self
+    }
+
+    private func addMarker() {
+//        let rect = CGRect(x: 0, y: 0, width: 20, height: 20)
+//        let view = UIView(frame: rect)
+//        view.backgroundColor = .red
+
+        let marker = GMSMarker(position: coordinate)
+        marker.icon = GMSMarker.markerImage(with: .green)
+        // marker.icon = UIImage(systemName: "figure.walk") // marker as an image
+        // marker.iconView = view // marker as a red rect
+
+        marker.title = "Hello"
+        marker.snippet = "Red Square"
+
+        marker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
+
+        marker.map = mapView
+        self.marker = marker
+    }
+
+    private func removeMarker() {
+        marker?.map = nil
+        marker = nil
+    }
 
 }
