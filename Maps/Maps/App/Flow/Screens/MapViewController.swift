@@ -26,9 +26,8 @@ class MapViewController: UIViewController {
         return view
     }()
     private var marker: GMSMarker?
-    private let coordinate = CLLocationCoordinate2D(latitude: 55.753215, longitude: 37.622504) // Центр Москвы
-
     private var locationManager: CLLocationManager?
+    private let coordinate = CLLocationCoordinate2D(latitude: 55.753215, longitude: 37.622504) // Центр Москвы
 
     // MARK: - Lifecycle
 
