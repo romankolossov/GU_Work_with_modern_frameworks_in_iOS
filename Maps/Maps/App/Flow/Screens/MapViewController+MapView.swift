@@ -33,8 +33,18 @@ extension MapViewController: GMSMapViewDelegate {
 
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let first = locations.first else { return }
-        Logger.viewCycle.debug("\(first)")
+        guard let location = locations.first else { return }
+        Logger.viewCycle.debug("\(location)")
+
+        geocoder.reverseGeocodeLocation(location) { (places, error) in
+            guard error == nil else {
+                guard let error = error?.localizedDescription else { return }
+                Logger.viewCycle.debug("\(error)")
+                return
+            }
+            guard let place = places?.first else { return }
+            Logger.viewCycle.debug("\(place)")
+        }
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

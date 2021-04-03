@@ -11,10 +11,12 @@ import GoogleMaps
 class MapViewController: UIViewController {
 
     // MARK: - Public properties
+
     public var publicMapView: GMSMapView {
         mapView
     }
     var manualMarker: GMSMarker?
+    let geocoder = CLGeocoder()
 
     // MARK: - Private properties
 
@@ -25,9 +27,15 @@ class MapViewController: UIViewController {
         view.delegate = self
         return view
     }()
+    private lazy var locationManager: CLLocationManager = {
+        let lm = CLLocationManager()
+        lm.requestWhenInUseAuthorization()
+        lm.delegate = self
+        return lm
+    }()
     private var marker: GMSMarker?
-    private var locationManager: CLLocationManager?
-    private let coordinate = CLLocationCoordinate2D(latitude: 55.753215, longitude: 37.622504) // Центр Москвы
+    private let coordinate = CLLocationCoordinate2D(
+        latitude: 55.753215, longitude: 37.622504) // Центр Москвы
 
     // MARK: - Lifecycle
 
@@ -38,15 +46,9 @@ class MapViewController: UIViewController {
 
         configureMap()
         configureMapStyle()
-
-        configureLocationManager()
     }
 
     // MARK: - Actions
-
-    @objc private func goToRedSquare() {
-        mapView.animate(toLocation: coordinate)
-    }
 
     @objc private func toggleMarker() {
         guard marker == nil else {
@@ -56,16 +58,22 @@ class MapViewController: UIViewController {
         addMarker()
     }
 
+    @objc private func goToRedSquare() {
+        mapView.animate(toLocation: coordinate)
+    }
+
     @objc func currentLocation() {
-        locationManager?.requestLocation()
+        locationManager.requestLocation()
     }
 
     @objc func updateLocation() {
-        locationManager?.startUpdatingLocation()
+        locationManager.startUpdatingLocation()
     }
 
     @objc func finishUpdateLocation() {
-        locationManager?.stopUpdatingLocation()
+        locationManager.stopUpdatingLocation()
+        mapView.clear()
+        removeMarker()
     }
 
     // MARK: - Private methods
@@ -73,25 +81,31 @@ class MapViewController: UIViewController {
     // MARK: Configure
 
     private func configureNavigationVC() {
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.largeTitleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.systemPurple
+        ]
+        let toggleMarkerItem = UIBarButtonItem(
+            image: UIImage(systemName: "checkmark.seal"),
+            style: .plain,
+            target: self,
+            action: #selector(toggleMarker)
+        )
         let goToRedSquareItem = UIBarButtonItem(
             image: UIImage(systemName: "arrow.down.right.and.arrow.up.left"),
             style: .plain,
             target: self,
             action: #selector(goToRedSquare)
         )
+        navigationItem.rightBarButtonItems = [
+            goToRedSquareItem, toggleMarkerItem
+        ]
+
         let currentLocationItem = UIBarButtonItem(
             image: UIImage(systemName: "location"),
             style: .plain,
             target: self,
             action: #selector(currentLocation)
-        )
-        navigationItem.rightBarButtonItems = [goToRedSquareItem, currentLocationItem]
-
-        let toggleMarkerItem = UIBarButtonItem(
-            image: UIImage(systemName: "checkmark.seal"),
-            style: .plain,
-            target: self,
-            action: #selector(toggleMarker)
         )
         let updateLocationItem = UIBarButtonItem(
             image: UIImage(systemName: "arrow.triangle.2.circlepath"),
@@ -105,10 +119,13 @@ class MapViewController: UIViewController {
             target: self,
             action: #selector(finishUpdateLocation)
         )
-        navigationItem.leftBarButtonItems = [toggleMarkerItem, updateLocationItem, finisUpdateLocationItem]
+        navigationItem.leftBarButtonItems = [
+            currentLocationItem, updateLocationItem, finisUpdateLocationItem
+        ]
     }
 
     private func configureMapVC() {
+        navigationItem.title = "Route tracker"
         addSubviews()
         setupConstraints()
     }
@@ -130,9 +147,9 @@ class MapViewController: UIViewController {
     }
 
     private func configureMap() {
-        // Создаём камеру с использованием координат и уровнем увеличения
+        // Create a camera with the use of coordinates and the zoom level.
         let camera = GMSCameraPosition.camera(withTarget: coordinate, zoom: 17)
-        // Устанавливаем камеру для карты
+        // Set the camera for the mapView.
         mapView.camera = camera
     }
 
@@ -335,13 +352,8 @@ class MapViewController: UIViewController {
            }
        }
 
-    private func configureLocationManager() {
-        locationManager = CLLocationManager()
-        locationManager?.requestWhenInUseAuthorization()
-        locationManager?.delegate = self
-    }
-
     private func addMarker() {
+        // Make a custom shape of the marker, example as a red rectangle.
 //        let rect = CGRect(x: 0, y: 0, width: 20, height: 20)
 //        let view = UIView(frame: rect)
 //        view.backgroundColor = .red
@@ -354,6 +366,7 @@ class MapViewController: UIViewController {
         marker.title = "Hello"
         marker.snippet = "Red Square"
 
+        // set where the marked coordinate relatively to the marker is, ehample in te middle of the marker
         marker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
 
         marker.map = mapView
