@@ -101,8 +101,8 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable {
             coordinates.append($0.coordinate(at: index))
             index += 1
         }
-        coordinates.map { latitudes.append($0.latitude) }
-        coordinates.map { longitudes.append($0.latitude) }
+        coordinates.forEach { latitudes.append($0.latitude) }
+        coordinates.forEach { longitudes.append($0.latitude) }
 
         DispatchQueue.main.async { [weak self] in
             let routePathElement = RoutePathElementData(latitudes: latitudes, longitudes: longitudes)
@@ -116,13 +116,27 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable {
     }
 
     @objc private func restoreRoutePath() {
+        var latitudes: [CLLocationDegrees] = []
+        var longitudes: [CLLocationDegrees] = []
         let routePathElements: Results<RoutePathElementData>? = realmManager?.getObjects()
+
+        routePathElements?.first?.latitudes.forEach { latitudes.append($0) }
+        routePathElements?.first?.latitudes.forEach { longitudes.append($0) }
+
         route?.map = nil
         route = GMSPolyline()
         routePath = GMSMutablePath()
-        //routePath = routePathElements?.first?.routePath
+
+        for (index, _ ) in latitudes.enumerated() {
+            routePath?.addLatitude(latitudes[index], longitude: longitudes[index])
+        }
+
         route?.map = mapView
         route?.path = routePath
+
+        let coordinate = CLLocationCoordinate2D(latitude: latitudes.first ?? 0.0, longitude: longitudes.first ?? 0.0)
+        let position = GMSCameraPosition(target: coordinate, zoom: 12)
+        publicMapView.animate(to: position)
     }
 
     // MARK: - Private methods
