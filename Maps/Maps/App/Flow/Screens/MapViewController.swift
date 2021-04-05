@@ -8,15 +8,17 @@
 import UIKit
 import GoogleMaps
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, ReverseGeocodeLoggable {
 
     // MARK: - Public properties
 
     public var publicMapView: GMSMapView {
         mapView
     }
+    public var publicLocationManager: CLLocationManager {
+        locationManager
+    }
     var manualMarker: GMSMarker?
-    let geocoder = CLGeocoder()
 
     // MARK: - Private properties
 
@@ -31,10 +33,15 @@ class MapViewController: UIViewController {
         let lm = CLLocationManager()
         lm.delegate = self
         lm.allowsBackgroundLocationUpdates = true
+        lm.pausesLocationUpdatesAutomatically = false
+        lm.startMonitoringSignificantLocationChanges()
+        lm.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         lm.requestAlwaysAuthorization()
         // lm.requestWhenInUseAuthorization()
         return lm
     }()
+    private(set) var route: GMSPolyline?
+    private(set) var rouutePath: GMSMutablePath?
     private var marker: GMSMarker?
     private let coordinate = CLLocationCoordinate2D(
         latitude: 55.753215, longitude: 37.622504) // Moscow, Red square.
@@ -69,6 +76,15 @@ class MapViewController: UIViewController {
     }
 
     @objc private func updateLocation() {
+        // Remove from the map old line.
+        route?.map = nil
+        // Replace old line by new one.
+        route = GMSPolyline()
+        // Replace old path by empty (without points yet) new one.
+        rouutePath = GMSMutablePath()
+        // Add new line on the map.
+        route?.map = mapView
+        // Start or continue updating location.
         locationManager.startUpdatingLocation()
     }
 
@@ -76,6 +92,8 @@ class MapViewController: UIViewController {
         locationManager.stopUpdatingLocation()
         mapView.clear()
         removeMarker()
+        // Remove from the map old line.
+        route?.map = nil
     }
 
     // MARK: - Private methods
@@ -356,10 +374,11 @@ class MapViewController: UIViewController {
 
     private func addMarker() {
         // Make a custom shape of the marker, for example as a red rectangle.
-//        let rect = CGRect(x: 0, y: 0, width: 20, height: 20)
-//        let view = UIView(frame: rect)
-//        view.backgroundColor = .red
-
+/*
+        let rect = CGRect(x: 0, y: 0, width: 20, height: 20)
+        let view = UIView(frame: rect)
+        view.backgroundColor = .red
+*/
         let marker = GMSMarker(position: coordinate)
         marker.icon = GMSMarker.markerImage(with: .green)
         // marker.icon = UIImage(systemName: "figure.walk") // Marker as an image.
