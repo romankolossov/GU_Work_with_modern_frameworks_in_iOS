@@ -33,8 +33,8 @@ extension MapViewController: GMSMapViewDelegate {
         marker.map = publicMapView
 
         // Add a point to the route path and update the path of the route line.
-        rouutePath?.add(coordinate)
-        route?.path = rouutePath
+        routePath?.add(coordinate)
+        route?.path = routePath
         // Set the camera to the point added to observe the movement.
         let position = GMSCameraPosition(target: coordinate, zoom: 17)
         publicMapView.animate(to: position)
@@ -60,9 +60,9 @@ extension MapViewController: CLLocationManagerDelegate {
         // Take the last point from the locations array recieved.
         guard let lastLocation = locations.last else { return }
         // Add it to the route path.
-        rouutePath?.add(lastLocation.coordinate)
+        routePath?.add(lastLocation.coordinate)
         // Update the path of the route line.
-        route?.path = rouutePath
+        route?.path = routePath
         // Set the camera to the point added to observe the movement.
         let position = GMSCameraPosition(target: lastLocation.coordinate, zoom: 17)
         publicMapView.animate(to: position)

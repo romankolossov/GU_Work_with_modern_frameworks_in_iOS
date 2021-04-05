@@ -7,6 +7,7 @@
 
 import UIKit
 import GoogleMaps
+import RealmSwift
 
 class MapViewController: UIViewController, ReverseGeocodeLoggable {
 
@@ -41,8 +42,9 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable {
         return lm
     }()
     private(set) var route: GMSPolyline?
-    private(set) var rouutePath: GMSMutablePath?
+    private(set) var routePath: GMSMutablePath?
     private var marker: GMSMarker?
+    private let realmManager = RealmManager.shared
     private let coordinate = CLLocationCoordinate2D(
         latitude: 55.753215, longitude: 37.622504) // Moscow, Red square.
 
@@ -81,7 +83,7 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable {
         // Replace old line by new one.
         route = GMSPolyline()
         // Replace old path by empty (without points yet) new one.
-        rouutePath = GMSMutablePath()
+        routePath = GMSMutablePath()
         // Add new line on the map.
         route?.map = mapView
         // Start or continue updating location.
@@ -90,10 +92,37 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable {
 
     @objc private func finishUpdateLocation() {
         locationManager.stopUpdatingLocation()
+        var index: UInt = 0
+        var coordinates: [CLLocationCoordinate2D] = []
+        var latitudes: [Double] = []
+        var longitudes: [Double] = []
+
+        routePath.map {
+            coordinates.append($0.coordinate(at: index))
+            index += 1
+        }
+        coordinates.map { latitudes.append($0.latitude) }
+        coordinates.map { longitudes.append($0.latitude) }
+
+        DispatchQueue.main.async { [weak self] in
+            let routePathElement = RoutePathElementData(latitudes: latitudes, longitudes: longitudes)
+            try? self?.realmManager?.deleteAll()
+            try? self?.realmManager?.add(object: routePathElement)
+        }
         mapView.clear()
         removeMarker()
         // Remove from the map old line.
         route?.map = nil
+    }
+
+    @objc private func restoreRoutePath() {
+        let routePathElements: Results<RoutePathElementData>? = realmManager?.getObjects()
+        route?.map = nil
+        route = GMSPolyline()
+        routePath = GMSMutablePath()
+        //routePath = routePathElements?.first?.routePath
+        route?.map = mapView
+        route?.path = routePath
     }
 
     // MARK: - Private methods
@@ -128,7 +157,7 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable {
             action: #selector(currentLocation)
         )
         let updateLocationItem = UIBarButtonItem(
-            image: UIImage(systemName: "arrow.triangle.2.circlepath"),
+            image: UIImage(systemName: "point.fill.topleft.down.curvedto.point.fill.bottomright.up"),
             style: .plain,
             target: self,
             action: #selector(updateLocation)
@@ -139,8 +168,14 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable {
             target: self,
             action: #selector(finishUpdateLocation)
         )
+        let restoreRoutePathItem = UIBarButtonItem(
+            image: UIImage(systemName: "arrow.down.doc"),
+            style: .plain,
+            target: self,
+            action: #selector(restoreRoutePath)
+        )
         navigationItem.leftBarButtonItems = [
-            currentLocationItem, updateLocationItem, finisUpdateLocationItem
+            currentLocationItem, updateLocationItem, finisUpdateLocationItem, restoreRoutePathItem
         ]
     }
 
