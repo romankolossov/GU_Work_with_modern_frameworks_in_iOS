@@ -30,7 +30,9 @@ class MapViewController: UIViewController {
     private lazy var locationManager: CLLocationManager = {
         let lm = CLLocationManager()
         lm.delegate = self
-        lm.requestWhenInUseAuthorization()
+        lm.allowsBackgroundLocationUpdates = true
+        lm.requestAlwaysAuthorization()
+        // lm.requestWhenInUseAuthorization()
         return lm
     }()
     private var marker: GMSMarker?
