@@ -22,20 +22,20 @@ class MapViewController: UIViewController {
 
     private lazy var mapView: GMSMapView = {
         let view = GMSMapView()
+        view.delegate = self
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.delegate = self
         return view
     }()
     private lazy var locationManager: CLLocationManager = {
         let lm = CLLocationManager()
-        lm.requestWhenInUseAuthorization()
         lm.delegate = self
+        lm.requestWhenInUseAuthorization()
         return lm
     }()
     private var marker: GMSMarker?
     private let coordinate = CLLocationCoordinate2D(
-        latitude: 55.753215, longitude: 37.622504) // Центр Москвы
+        latitude: 55.753215, longitude: 37.622504) // Moscow, Red square.
 
     // MARK: - Lifecycle
 
@@ -62,15 +62,15 @@ class MapViewController: UIViewController {
         mapView.animate(toLocation: coordinate)
     }
 
-    @objc func currentLocation() {
+    @objc private func currentLocation() {
         locationManager.requestLocation()
     }
 
-    @objc func updateLocation() {
+    @objc private func updateLocation() {
         locationManager.startUpdatingLocation()
     }
 
-    @objc func finishUpdateLocation() {
+    @objc private func finishUpdateLocation() {
         locationManager.stopUpdatingLocation()
         mapView.clear()
         removeMarker()
@@ -125,7 +125,7 @@ class MapViewController: UIViewController {
     }
 
     private func configureMapVC() {
-        navigationItem.title = "Route tracker"
+        navigationItem.title = NSLocalizedString("routeTracker", comment: "")
         addSubviews()
         setupConstraints()
     }
@@ -353,20 +353,20 @@ class MapViewController: UIViewController {
        }
 
     private func addMarker() {
-        // Make a custom shape of the marker, example as a red rectangle.
+        // Make a custom shape of the marker, for example as a red rectangle.
 //        let rect = CGRect(x: 0, y: 0, width: 20, height: 20)
 //        let view = UIView(frame: rect)
 //        view.backgroundColor = .red
 
         let marker = GMSMarker(position: coordinate)
         marker.icon = GMSMarker.markerImage(with: .green)
-        // marker.icon = UIImage(systemName: "figure.walk") // marker as an image
-        // marker.iconView = view // marker as a red rect
+        // marker.icon = UIImage(systemName: "figure.walk") // Marker as an image.
+        // marker.iconView = view // Marker as a red rect.
 
         marker.title = "Hello"
         marker.snippet = "Red Square"
 
-        // set where the marked coordinate relatively to the marker is, ehample in te middle of the marker
+        // Set where the marked coordinate relatively to the marker is, for example in the middle of the marker.
         marker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
 
         marker.map = mapView

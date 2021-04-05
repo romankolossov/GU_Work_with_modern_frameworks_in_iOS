@@ -12,7 +12,7 @@ import OSLog
 extension MapViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         Logger.viewCycle.debug("\(coordinate)")
-        // Place one marker at one tap and move the center of map in it
+        // Place one marker at one tap and move the center of map in it.
 //        guard let manualMarker = manualMarker else {
 //            let marker = GMSMarker(position: coordinate)
 //            marker.map = publicMapView
@@ -24,7 +24,7 @@ extension MapViewController: GMSMapViewDelegate {
 //        publicMapView.animate(toLocation: coordinate)
 
         // Place one marker at one tap and move the center of map in it
-        // leaving the markers of the previous taps on the map
+        // leaving the markers of the previous taps on the map.
         let marker = GMSMarker(position: coordinate)
         marker.map = publicMapView
         publicMapView.animate(toLocation: coordinate)
