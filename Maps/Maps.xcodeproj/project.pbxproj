@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C84B8BFF261CA24C0027AD17 /* AlertShowable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84B8BFE261CA24C0027AD17 /* AlertShowable+Extension.swift */; };
 		C85A72142616420C00A42DA6 /* Logger+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85A72132616420C00A42DA6 /* Logger+Extension.swift */; };
 		C85A72182616433500A42DA6 /* CLLocationCoordinate2D+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85A72172616433500A42DA6 /* CLLocationCoordinate2D+Extension.swift */; };
 		C85CE025261AA76F0099AB60 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C85CE023261AA76F0099AB60 /* InfoPlist.strings */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C84B8BFE261CA24C0027AD17 /* AlertShowable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlertShowable+Extension.swift"; sourceTree = "<group>"; };
 		C85A72132616420C00A42DA6 /* Logger+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extension.swift"; sourceTree = "<group>"; };
 		C85A72172616433500A42DA6 /* CLLocationCoordinate2D+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Extension.swift"; sourceTree = "<group>"; };
 		C85CE024261AA76F0099AB60 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				C85CE03B261B1EB10099AB60 /* ReverseGeocodeLoggable+Extension.swift */,
+				C84B8BFE261CA24C0027AD17 /* AlertShowable+Extension.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				C85CE03C261B1EB10099AB60 /* ReverseGeocodeLoggable+Extension.swift in Sources */,
 				C8A789C6261478E7002C24B4 /* SceneDelegate.swift in Sources */,
 				C85A72142616420C00A42DA6 /* Logger+Extension.swift in Sources */,
+				C84B8BFF261CA24C0027AD17 /* AlertShowable+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -5,11 +5,11 @@
 //  Created by Roman Kolosov on 05.04.2021.
 //
 
-import Foundation
+import UIKit
 import GoogleMaps
 import OSLog
 
-protocol ReverseGeocodeLoggable { }
+protocol ReverseGeocodeLoggable where Self: UIViewController { }
 
 extension ReverseGeocodeLoggable {
     // Log the place of the location.

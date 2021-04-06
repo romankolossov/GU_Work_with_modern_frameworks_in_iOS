@@ -9,7 +9,7 @@ import UIKit
 import GoogleMaps
 import RealmSwift
 
-class MapViewController: UIViewController, ReverseGeocodeLoggable {
+class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable {
 
     // MARK: - Public properties
 
@@ -37,6 +37,7 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable {
         lm.pausesLocationUpdatesAutomatically = false
         lm.startMonitoringSignificantLocationChanges()
         lm.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        lm.showsBackgroundLocationIndicator = true
         lm.requestAlwaysAuthorization()
         // lm.requestWhenInUseAuthorization()
         return lm
@@ -44,6 +45,7 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable {
     private(set) var route: GMSPolyline?
     private(set) var routePath: GMSMutablePath?
     private var marker: GMSMarker?
+    private var drawingRoutePath: Bool = false
     private let realmManager = RealmManager.shared
     private let coordinate = CLLocationCoordinate2D(
         latitude: 55.753215, longitude: 37.622504) // Moscow, Red square.
@@ -78,6 +80,8 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable {
     }
 
     @objc private func updateLocation() {
+        // Flag of draving route path in prgress to avoid load saved route path when draving new one.
+        drawingRoutePath = true
         // Remove from the map old line.
         route?.map = nil
         // Replace old line by new one.
@@ -121,9 +125,20 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable {
         }
         mapView.clear()
         removeMarker()
+        // Stop driving route path flag to allow load saved route path.
+        drawingRoutePath = false
     }
 
     @objc private func restoreRoutePath() {
+        guard !drawingRoutePath else {
+            showAlert(
+                title: "Route path update",
+                message: "Route path is updating. To load saved route, please, finish drawing current route by pressing \"Stop\" button",
+                handler: nil,
+                completion: nil
+            )
+            return
+        }
         var latitudes: [CLLocationDegrees] = []
         var longitudes: [CLLocationDegrees] = []
 
