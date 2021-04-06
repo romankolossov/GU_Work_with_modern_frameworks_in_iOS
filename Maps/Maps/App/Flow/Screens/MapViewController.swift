@@ -163,10 +163,12 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
         }
         route?.path = routePath
 
-        // Set the camera to the begin of the root path loaded.
-        let coordinate = CLLocationCoordinate2D(latitude: latitudes.first ?? 0.0, longitude: longitudes.first ?? 0.0)
-        let position = GMSCameraPosition(target: coordinate, zoom: 17)
-        publicMapView.animate(to: position)
+        // Set the camera to fit the route path loaded.
+        guard let routePath = routePath else {
+            return
+        }
+        let bounds = GMSCoordinateBounds(path: routePath)
+        mapView.animate(with: GMSCameraUpdate.fit(bounds))
     }
 
     // MARK: - Private methods
@@ -252,6 +254,33 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
         mapView.camera = camera
     }
 
+    private func addMarker() {
+        // Make a custom shape of the marker, for example as a red rectangle.
+/*
+        let rect = CGRect(x: 0, y: 0, width: 20, height: 20)
+        let view = UIView(frame: rect)
+        view.backgroundColor = .red
+*/
+        let marker = GMSMarker(position: coordinate)
+        marker.icon = GMSMarker.markerImage(with: .green)
+        // marker.icon = UIImage(systemName: "figure.walk") // Marker as an image.
+        // marker.iconView = view // Marker as a red rect.
+
+        marker.title = "Hello"
+        marker.snippet = "Red Square"
+
+        // Set where the marked coordinate relatively to the marker is, for example in the middle of the marker.
+        marker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
+
+        marker.map = mapView
+        self.marker = marker
+    }
+
+    private func removeMarker() {
+        marker?.map = nil
+        marker = nil
+    }
+    
     private func configureMapStyle() {
            let style = "[" +
                "  {" +
@@ -450,32 +479,5 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
                print(error)
            }
        }
-
-    private func addMarker() {
-        // Make a custom shape of the marker, for example as a red rectangle.
-/*
-        let rect = CGRect(x: 0, y: 0, width: 20, height: 20)
-        let view = UIView(frame: rect)
-        view.backgroundColor = .red
-*/
-        let marker = GMSMarker(position: coordinate)
-        marker.icon = GMSMarker.markerImage(with: .green)
-        // marker.icon = UIImage(systemName: "figure.walk") // Marker as an image.
-        // marker.iconView = view // Marker as a red rect.
-
-        marker.title = "Hello"
-        marker.snippet = "Red Square"
-
-        // Set where the marked coordinate relatively to the marker is, for example in the middle of the marker.
-        marker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
-
-        marker.map = mapView
-        self.marker = marker
-    }
-
-    private func removeMarker() {
-        marker?.map = nil
-        marker = nil
-    }
 
 }
