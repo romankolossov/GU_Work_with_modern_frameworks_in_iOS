@@ -82,28 +82,38 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable {
         route?.map = nil
         // Replace old line by new one.
         route = GMSPolyline()
+        route?.strokeWidth = 3
+        route?.strokeColor = .systemGreen
+        // Add the new line on the map.
+        route?.map = mapView
         // Replace old path by empty (without points yet) new one.
         routePath = GMSMutablePath()
-        // Add new line on the map.
-        route?.map = mapView
         // Start or continue updating location.
         locationManager.startUpdatingLocation()
     }
 
     @objc private func finishUpdateLocation() {
-        locationManager.stopUpdatingLocation()
-        var index: UInt = 0
         var coordinates: [CLLocationCoordinate2D] = []
         var latitudes: [Double] = []
         var longitudes: [Double] = []
 
-        routePath.map {
-            coordinates.append($0.coordinate(at: index))
-            index += 1
-        }
-        coordinates.forEach { latitudes.append($0.latitude) }
-        coordinates.forEach { longitudes.append($0.latitude) }
+        locationManager.stopUpdatingLocation()
 
+        // Get coordinates of the route path points to get from them longs and lats.
+        for index: UInt in 0...(routePath?.count() ?? 0) {
+            guard let coordinate = routePath?.coordinate(at: index) else {
+                return
+            }
+            coordinates.append(coordinate)
+        }
+        // Remove by system automatically added for technical use the last point.
+        coordinates.removeLast()
+
+        // Get longs and lats to save them in the Realm.
+        coordinates.forEach { latitudes.append($0.latitude) }
+        coordinates.forEach { longitudes.append($0.longitude) }
+
+        // Save longs and lats of the points of the route path in Realm.
         DispatchQueue.main.async { [weak self] in
             let routePathElement = RoutePathElementData(latitudes: latitudes, longitudes: longitudes)
             try? self?.realmManager?.deleteAll()
@@ -111,31 +121,36 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable {
         }
         mapView.clear()
         removeMarker()
-        // Remove from the map old line.
-        route?.map = nil
     }
 
     @objc private func restoreRoutePath() {
         var latitudes: [CLLocationDegrees] = []
         var longitudes: [CLLocationDegrees] = []
+
+        // Load from Realm saved points of the last route path.
         let routePathElements: Results<RoutePathElementData>? = realmManager?.getObjects()
 
+        // Get longs and lats.
         routePathElements?.first?.latitudes.forEach { latitudes.append($0) }
-        routePathElements?.first?.latitudes.forEach { longitudes.append($0) }
+        routePathElements?.first?.longitudes.forEach { longitudes.append($0) }
 
+        // Remove from the map old line, replace it by the new one, add the new line on the map.
         route?.map = nil
         route = GMSPolyline()
-        routePath = GMSMutablePath()
+        route?.strokeWidth = 3
+        route?.strokeColor = .systemPurple
+        route?.map = mapView
 
-        for (index, _ ) in latitudes.enumerated() {
+        // Replace old root path by one with loaded from Realm points in it.
+        routePath = GMSMutablePath()
+        for (index) in latitudes.indices {
             routePath?.addLatitude(latitudes[index], longitude: longitudes[index])
         }
-
-        route?.map = mapView
         route?.path = routePath
 
+        // Set the camera to the begin of the root path loaded.
         let coordinate = CLLocationCoordinate2D(latitude: latitudes.first ?? 0.0, longitude: longitudes.first ?? 0.0)
-        let position = GMSCameraPosition(target: coordinate, zoom: 12)
+        let position = GMSCameraPosition(target: coordinate, zoom: 17)
         publicMapView.animate(to: position)
     }
 

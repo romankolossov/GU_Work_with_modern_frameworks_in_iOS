@@ -13,7 +13,7 @@ class RoutePathElementData: Object {
     var id = RealmOptional<Int>()
     var latitudes = List<Double>()
     var longitudes = List<Double>()
-    
+
     override class func primaryKey() -> String? {
         "id"
     }

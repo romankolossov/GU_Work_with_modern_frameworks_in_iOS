@@ -28,7 +28,6 @@ extension MapViewController: GMSMapViewDelegate {
         // Place one marker at one tap and move the center of map to it
         // leaving the rest markers of the previous taps on the map
         // and drawing lines between them if update location pressed.
-
         let marker = GMSMarker(position: coordinate)
         marker.map = publicMapView
 
@@ -39,7 +38,7 @@ extension MapViewController: GMSMapViewDelegate {
         let position = GMSCameraPosition(target: coordinate, zoom: 17)
         publicMapView.animate(to: position)
 
-        // Log the place of the location.
+        // Log the adress of place of the location.
         let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
         reverseGeocodeLog(location: location)
     }
@@ -51,7 +50,7 @@ extension MapViewController: CLLocationManagerDelegate {
         guard let location = locations.first else { return }
         Logger.viewCycle.debug("\(location)")
 
-        // Log the place of the location.
+        // Log the address of place of the location.
         reverseGeocodeLog(location: location)
 
         // Track the movement in foreground and background app states
