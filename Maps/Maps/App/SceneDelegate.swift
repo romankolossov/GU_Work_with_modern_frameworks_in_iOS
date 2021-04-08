@@ -12,17 +12,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let _ = (scene as? UIWindowScene) else { return }
-        let windowFrame = UIScreen.main.bounds
+        guard let windowScene = (scene as? UIWindowScene) else { return }
 
+        let windowFrame = UIScreen.main.bounds
         self.window = UIWindow(frame: windowFrame)
+
         self.window?.makeKeyAndVisible()
+        self.window?.windowScene = windowScene
 
         let tabBarController = TabBarController()
         self.window?.rootViewController = tabBarController
-
-        let windowScene = scene as? UIWindowScene
-        self.window?.windowScene = windowScene
 
         // MARK: Set dark InterfaceStyle
 
