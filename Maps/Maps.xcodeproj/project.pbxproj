@@ -30,6 +30,7 @@
 		C8A789C8261478E7002C24B4 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A789C7261478E7002C24B4 /* MapViewController.swift */; };
 		C8A789CD261478EA002C24B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8A789CC261478EA002C24B4 /* Assets.xcassets */; };
 		C8A789D0261478EA002C24B4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8A789CE261478EA002C24B4 /* LaunchScreen.storyboard */; };
+		C8CB74E5261F736A00827779 /* NibNameLoadable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8CB74E4261F736A00827779 /* NibNameLoadable+Extension.swift */; };
 		C8F217D2261F267900457B1F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F217D1261F267900457B1F /* TabBarController.swift */; };
 		C8F217D9261F2BCC00457B1F /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F217D8261F2BCC00457B1F /* UIColor+Extension.swift */; };
 		C8F217DC261F2E9400457B1F /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F217DB261F2E9400457B1F /* UserViewController.swift */; };
@@ -58,6 +59,7 @@
 		C8A789CC261478EA002C24B4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C8A789CF261478EA002C24B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C8A789D1261478EA002C24B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C8CB74E4261F736A00827779 /* NibNameLoadable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NibNameLoadable+Extension.swift"; sourceTree = "<group>"; };
 		C8F217D1261F267900457B1F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		C8F217D8261F2BCC00457B1F /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		C8F217DB261F2E9400457B1F /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
@@ -100,13 +102,14 @@
 			path = Localizations;
 			sourceTree = "<group>";
 		};
-		C85CE041261B299B0099AB60 /* Common */ = {
+		C85CE041261B299B0099AB60 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
 				C85CE03B261B1EB10099AB60 /* ReverseGeocodeLoggable+Extension.swift */,
 				C84B8BFE261CA24C0027AD17 /* AlertShowable+Extension.swift */,
+				C8CB74E4261F736A00827779 /* NibNameLoadable+Extension.swift */,
 			);
-			path = Common;
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		C85CE04B261B79720099AB60 /* Realm */ = {
@@ -187,7 +190,7 @@
 		C85E73622614981B00D4ABDC /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				C85CE041261B299B0099AB60 /* Common */,
+				C85CE041261B299B0099AB60 /* Protocols */,
 				C85A7212261641DA00A42DA6 /* Extensions */,
 			);
 			path = Core;
@@ -369,6 +372,7 @@
 				C85CE04D261B79B90099AB60 /* RealmManager.swift in Sources */,
 				C866DA0726163E200028BAE1 /* MapViewController+MapView.swift in Sources */,
 				C8A789C4261478E7002C24B4 /* AppDelegate.swift in Sources */,
+				C8CB74E5261F736A00827779 /* NibNameLoadable+Extension.swift in Sources */,
 				C85A72182616433500A42DA6 /* CLLocationCoordinate2D+Extension.swift in Sources */,
 				C85CE03C261B1EB10099AB60 /* ReverseGeocodeLoggable+Extension.swift in Sources */,
 				C8A789C6261478E7002C24B4 /* SceneDelegate.swift in Sources */,

@@ -7,10 +7,10 @@
 
 import UIKit
 
-class TabBarController: UITabBarController {
+class TabBarController: UITabBarController, NibNameLoadable {
 
     init() {
-        super.init(nibName: nil, bundle: nil)
+        super.init(nibName: TabBarController.nibName, bundle: Bundle.main)
         viewControllers = createViewControllers()
 
         tabBar.backgroundColor = .tabBarBackgroundColor
