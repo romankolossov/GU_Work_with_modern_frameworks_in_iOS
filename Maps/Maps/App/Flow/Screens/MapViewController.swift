@@ -87,7 +87,7 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
         // Replace old line by new one.
         route = GMSPolyline()
         route?.strokeWidth = 3
-        route?.strokeColor = .systemGreen
+        route?.strokeColor = .updateLocationStrokeColor
         // Add the new line on the map.
         route?.map = mapView
         // Replace old path by empty (without points yet) new one.
@@ -133,7 +133,7 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
         guard !drawingRoutePath else {
             showAlert(
                 title: "Route path update",
-                message: "Route path is updating. To load saved route, please, finish drawing current route by pressing \"Stop\" button",
+                message: "Route path draw in process. To load saved route, please, finish drawing current route by pressing \"Stop\" button",
                 handler: nil,
                 completion: nil
             )
@@ -153,7 +153,7 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
         route?.map = nil
         route = GMSPolyline()
         route?.strokeWidth = 3
-        route?.strokeColor = .systemPurple
+        route?.strokeColor = .restoreRoutePathStrokeColor
         route?.map = mapView
 
         // Replace old root path by one with loaded from Realm points in it.
@@ -178,8 +178,13 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
     private func configureNavigationVC() {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.largeTitleTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.systemPurple
+            NSAttributedString.Key.foregroundColor: UIColor.navigationBarLargeTitleTextColor
         ]
+        navigationController?.navigationBar.isTranslucent = true
+
+        navigationController?.navigationBar.tintColor = .navigationBarTintColor
+        navigationController?.navigationBar.backgroundColor = .navigationBarBackgroundColor
+
         let toggleMarkerItem = UIBarButtonItem(
             image: UIImage(systemName: "checkmark.seal"),
             style: .plain,
@@ -227,6 +232,8 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
 
     private func configureMapVC() {
         navigationItem.title = NSLocalizedString("routeTracker", comment: "")
+        view.backgroundColor = .rootVCViewBackgroundColor
+        (UIApplication.shared.delegate as? AppDelegate)?.restrictRotation = .portrait
         addSubviews()
         setupConstraints()
     }
@@ -280,7 +287,7 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
         marker?.map = nil
         marker = nil
     }
-    
+
     private func configureMapStyle() {
            let style = "[" +
                "  {" +

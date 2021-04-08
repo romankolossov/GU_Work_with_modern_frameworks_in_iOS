@@ -11,6 +11,33 @@ import GoogleMaps
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    // MARK: - Public properties
+
+    // Restrict InterfaceOrientation with portrait type only for all screens
+    // InterfaceOrientation type for particular screen may be change inside its view controller
+
+    enum TypeInterfaceOrientationMask {
+        case all
+        case portrait
+        case landscape
+    }
+    var restrictRotation: TypeInterfaceOrientationMask = .portrait
+
+    // MARK: - Public methods
+
+    // MARK: InterfaceOrientations
+
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        switch self.restrictRotation {
+        case .all:
+            return UIInterfaceOrientationMask.all
+        case .portrait:
+            return UIInterfaceOrientationMask.portrait
+        case .landscape:
+            return UIInterfaceOrientationMask.landscape
+        }
+    }
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 
