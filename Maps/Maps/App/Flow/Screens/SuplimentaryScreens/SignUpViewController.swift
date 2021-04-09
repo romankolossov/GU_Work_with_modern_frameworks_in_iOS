@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class SignUpViewController: UIViewController, AlertShowable {
 
@@ -50,6 +51,7 @@ class SignUpViewController: UIViewController, AlertShowable {
         navigationBar.barTintColor = .customNavigationBarTintColor
         return navigationBar
     }()
+    private let realmManager = RealmManager.shared
 
     // MARK: - Lifecycle
 
@@ -102,17 +104,22 @@ class SignUpViewController: UIViewController, AlertShowable {
     // MARK: Signup
 
     @objc private func signUp() {
-        signUpButton.shake() // Animation when the signUpButton is tapped.
+        // Animation when the signUpButton is tapped.
+        signUpButton.shake()
 
-        // MARK: TO DO
-        let resultWithSignUpSuccess: Int = 1
-        let result: Int = 1
+        guard let users: Results<User> = realmManager?.getObjects() else { return }
+        // Get all logins.
+        let logins = Array(users).map { $0.login }
 
         let handler: ((UIAlertAction) -> Void)? = { [weak self] _ in
             // After alert OK pressed, dismiss SignUpVC screen to move to User VC screen
             self?.dismiss(animated: true, completion: nil)
         }
-        guard result == resultWithSignUpSuccess else {
+        guard let login = signUpView.userNameTextField.text,
+              // Check that fields is not be empty.
+              let password = signUpView.passwordTextField.text,
+              // Check that entered login is not used before.
+              !logins.contains(login) else {
             self.showAlert(
                 title: NSLocalizedString("signup", comment: ""),
                 message: NSLocalizedString("signupFailure", comment: ""),
@@ -120,6 +127,13 @@ class SignUpViewController: UIViewController, AlertShowable {
                 completion: nil
             )
             return
+        }
+        DispatchQueue.main.async { [weak self] in
+            let user = User(
+                login: login,
+                password: password
+            )
+            try? self?.realmManager?.add(object: user)
         }
         self.showAlert(
             title: NSLocalizedString("signup", comment: ""),

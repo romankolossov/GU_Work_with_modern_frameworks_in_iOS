@@ -28,7 +28,7 @@
 "toSignUp" = "Sign up";
 
 "signupSuccess" = "Registration passed";
-"signupFailure" = "Registration failed. Plese, try later";
+"signupFailure" = "Registration failed. Plese, check whether login and password fields are filled in or change login";
 
 // SignIn VC
 

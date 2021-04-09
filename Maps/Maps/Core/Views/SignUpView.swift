@@ -49,7 +49,7 @@ class SignUpView: UIScrollView {
         idTextField.layer.cornerRadius = .textFieldCornerRadius
 
         userNameTextField.translatesAutoresizingMaskIntoConstraints = false
-        userNameTextField.placeholder = " User name"
+        userNameTextField.placeholder = " Login (unique user name)"
         userNameTextField.textColor = .userTextFieldTextColor
         userNameTextField.textAlignment = .left
         userNameTextField.font = .userTextFieldFont

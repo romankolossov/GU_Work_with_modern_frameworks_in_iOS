@@ -17,7 +17,7 @@ class UserViewController: UIViewController, AlertShowable {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    // private var userData: UserData?
+    // private var userData: LoggedUserData?
 
     // MARK: - Lifecycle
 
@@ -28,7 +28,7 @@ class UserViewController: UIViewController, AlertShowable {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // userData = UserData.getUser()
+        // userData = LoggedUserData.getUser()
         configureUserVCLook()
     }
 
@@ -58,6 +58,10 @@ class UserViewController: UIViewController, AlertShowable {
 
     @objc private func logout() {
         // MARK: TO DO
+//        guard let userData = userData else {
+//            return
+//        }
+//        let id = String(userData.user.id)
 
         let resultWithLogoutSuccess: Int = 1
         let result: Int = 1
@@ -71,7 +75,7 @@ class UserViewController: UIViewController, AlertShowable {
             )
             return
         }
-        // UserData.clearUser()
+        // LoggedUserData.clearUser()
         self.viewDidAppear(true)
 
         self.showAlert(

@@ -124,7 +124,7 @@ class SignInViewController: UIViewController, AlertShowable {
             )
             return
         }
-//        UserData.saveUser(
+//        LoggedUserData.saveUser(
 //            id: model.user.id,
 //            login: model.user.login,
 //            name: model.user.name,
