@@ -18,7 +18,7 @@ extension UIColor {
 
     static let navigationBarLargeTitleTextColor: UIColor = tabBarTintColor
     static let navigationBarBackgroundColor: UIColor = tabBarBackgroundColor
-    static let navigationBarTintColor: UIColor = .systemBlue
+    static let navigationBarTintColor: UIColor = .systemOrange
 
     static let rootVCViewBackgroundColor: UIColor = tabBarBackgroundColor
 
@@ -30,6 +30,22 @@ extension UIColor {
     // MARK: - User VC
 
     static let userLableTextColor: UIColor = .systemGray6
+
+    // MARK: - SignIn and SignUp VCs
+
+    static let userTextFieldTextColor: UIColor = userLableTextColor
+    static let userTextFieldTextBackgroundColor: UIColor = .init(white: 0.48, alpha: 0.36)
+
+    static let customNavigationBarTitleTextColor: UIColor = .white
+    // custom purple 2
+    static let customNavigationBarTintColor: UIColor = .init(red: 210 / 255, green: 0 / 255, blue: 185 / 255, alpha: 1.0)
+
+    // MARK: Buttons
+
+    static let buttonBackgroundColor: UIColor = tabBarBackgroundColor
+    static let buttonTitleColor: UIColor = tabBarTintColor
+    static let buttonTitleColorWhenHighlighted: UIColor = .systemGreen
+    static let buttonBorderColor: UIColor = tabBarTintColor
 
     // MARK: - for the rest views
 

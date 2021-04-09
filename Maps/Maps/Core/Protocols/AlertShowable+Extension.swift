@@ -37,7 +37,7 @@ extension AlertShowable {
         alertController.setValue(alertTitle, forKey: "attributedTitle")
 
         let okAction = UIAlertAction(
-            title: "OK",
+            title: NSLocalizedString("close", comment: ""),
             style: .cancel,
             handler: handler
         )

@@ -6,4 +6,40 @@
   
 */
 
+// Map VC
+
 "routeTracker" = "Route tracker";
+
+// User VC
+
+"userVCName" = "Hi";
+"customer" = "dear customer";
+
+"logout" = "Logout";
+
+"logoutSuccess" = "You have logged out";
+"logoutFailure" = "Logout failed. Plese, try later";
+
+// SignUp VC
+
+// state
+"signup" = "Signup";
+// action
+"toSignUp" = "Sign up";
+
+"signupSuccess" = "Registration passed";
+"signupFailure" = "Registration failed. Plese, try later";
+
+// SignIn VC
+
+// state
+"signin" = "Signin";
+// action
+"toSignIn" = "Sign in";
+
+"signinSuccess" = "Signin success";
+"signinFailure" = "Signin failure. Plese, try later";
+
+// Alerts
+
+"close" = "Close";

@@ -13,6 +13,10 @@ extension UIFont {
 
     static let userLableFont: UIFont = .preferredFont(forTextStyle: .body)
 
+    // MARK: - SignIn and SignUp VCs
+
+    static let userTextFieldFont: UIFont = .preferredFont(forTextStyle: .body)
+
     // MARK: - Alerts
 
     static let alertTitleFont: UIFont = .preferredFont(forTextStyle: .headline)

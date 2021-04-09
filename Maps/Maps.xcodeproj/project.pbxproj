@@ -27,6 +27,13 @@
 		C86774C5261F4CDD00EE93DE /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86774C4261F4CDD00EE93DE /* UIFont+Extension.swift */; };
 		C88C5AB7261F8232007ECAB7 /* UserRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C5AB6261F8232007ECAB7 /* UserRealm.swift */; };
 		C88C5ABB26203F25007ECAB7 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C5ABA26203F25007ECAB7 /* UserView.swift */; };
+		C88C5ABF26206091007ECAB7 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C5ABE26206091007ECAB7 /* SignInView.swift */; };
+		C88C5AC2262060EC007ECAB7 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C5AC1262060EC007ECAB7 /* SignUpView.swift */; };
+		C88C5AC5262061DE007ECAB7 /* ShakableViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C5AC4262061DE007ECAB7 /* ShakableViews.swift */; };
+		C88C5AC826206243007ECAB7 /* Shakable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C5AC726206243007ECAB7 /* Shakable+Extension.swift */; };
+		C88C5ACB262063A0007ECAB7 /* CGFloat+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C5ACA262063A0007ECAB7 /* CGFloat+Extension.swift */; };
+		C88C5ACF262064FA007ECAB7 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C5ACE262064FA007ECAB7 /* SignInViewController.swift */; };
+		C88C5AD226206511007ECAB7 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C5AD126206511007ECAB7 /* SignUpViewController.swift */; };
 		C8A789C4261478E7002C24B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A789C3261478E7002C24B4 /* AppDelegate.swift */; };
 		C8A789C6261478E7002C24B4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A789C5261478E7002C24B4 /* SceneDelegate.swift */; };
 		C8A789C8261478E7002C24B4 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A789C7261478E7002C24B4 /* MapViewController.swift */; };
@@ -56,6 +63,13 @@
 		C86774C4261F4CDD00EE93DE /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		C88C5AB6261F8232007ECAB7 /* UserRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRealm.swift; sourceTree = "<group>"; };
 		C88C5ABA26203F25007ECAB7 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
+		C88C5ABE26206091007ECAB7 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		C88C5AC1262060EC007ECAB7 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		C88C5AC4262061DE007ECAB7 /* ShakableViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakableViews.swift; sourceTree = "<group>"; };
+		C88C5AC726206243007ECAB7 /* Shakable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shakable+Extension.swift"; sourceTree = "<group>"; };
+		C88C5ACA262063A0007ECAB7 /* CGFloat+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extension.swift"; sourceTree = "<group>"; };
+		C88C5ACE262064FA007ECAB7 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		C88C5AD126206511007ECAB7 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		C8A789C0261478E7002C24B4 /* Maps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Maps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8A789C3261478E7002C24B4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C8A789C5261478E7002C24B4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -94,6 +108,7 @@
 				C85A72172616433500A42DA6 /* CLLocationCoordinate2D+Extension.swift */,
 				C8F217D8261F2BCC00457B1F /* UIColor+Extension.swift */,
 				C86774C4261F4CDD00EE93DE /* UIFont+Extension.swift */,
+				C88C5ACA262063A0007ECAB7 /* CGFloat+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -112,6 +127,7 @@
 				C85CE03B261B1EB10099AB60 /* ReverseGeocodeLoggable+Extension.swift */,
 				C84B8BFE261CA24C0027AD17 /* AlertShowable+Extension.swift */,
 				C8CB74E4261F736A00827779 /* NibNameLoadable+Extension.swift */,
+				C88C5AC726206243007ECAB7 /* Shakable+Extension.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -158,9 +174,8 @@
 		C85E735E261496D400D4ABDC /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				C8A789C7261478E7002C24B4 /* MapViewController.swift */,
-				C866DA0626163E200028BAE1 /* MapViewController+MapView.swift */,
-				C8F217DB261F2E9400457B1F /* UserViewController.swift */,
+				C88C5AD426208387007ECAB7 /* RootScreens */,
+				C88C5ACD262064AE007ECAB7 /* SuplimentaryScreens */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -229,8 +244,30 @@
 			isa = PBXGroup;
 			children = (
 				C88C5ABA26203F25007ECAB7 /* UserView.swift */,
+				C88C5ABE26206091007ECAB7 /* SignInView.swift */,
+				C88C5AC1262060EC007ECAB7 /* SignUpView.swift */,
+				C88C5AC4262061DE007ECAB7 /* ShakableViews.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		C88C5ACD262064AE007ECAB7 /* SuplimentaryScreens */ = {
+			isa = PBXGroup;
+			children = (
+				C88C5ACE262064FA007ECAB7 /* SignInViewController.swift */,
+				C88C5AD126206511007ECAB7 /* SignUpViewController.swift */,
+			);
+			path = SuplimentaryScreens;
+			sourceTree = "<group>";
+		};
+		C88C5AD426208387007ECAB7 /* RootScreens */ = {
+			isa = PBXGroup;
+			children = (
+				C8A789C7261478E7002C24B4 /* MapViewController.swift */,
+				C866DA0626163E200028BAE1 /* MapViewController+MapView.swift */,
+				C8F217DB261F2E9400457B1F /* UserViewController.swift */,
+			);
+			path = RootScreens;
 			sourceTree = "<group>";
 		};
 		C8A789B7261478E7002C24B4 = {
@@ -377,11 +414,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C88C5ABF26206091007ECAB7 /* SignInView.swift in Sources */,
 				C86774C5261F4CDD00EE93DE /* UIFont+Extension.swift in Sources */,
 				C85CE051261B7BD20099AB60 /* RoutePathRealm.swift in Sources */,
 				C8A789C8261478E7002C24B4 /* MapViewController.swift in Sources */,
+				C88C5AC826206243007ECAB7 /* Shakable+Extension.swift in Sources */,
 				C8F217DC261F2E9400457B1F /* UserViewController.swift in Sources */,
+				C88C5ACB262063A0007ECAB7 /* CGFloat+Extension.swift in Sources */,
+				C88C5AC2262060EC007ECAB7 /* SignUpView.swift in Sources */,
 				C88C5AB7261F8232007ECAB7 /* UserRealm.swift in Sources */,
+				C88C5AC5262061DE007ECAB7 /* ShakableViews.swift in Sources */,
 				C8F217D2261F267900457B1F /* TabBarController.swift in Sources */,
 				C8F217D9261F2BCC00457B1F /* UIColor+Extension.swift in Sources */,
 				C85CE04D261B79B90099AB60 /* RealmManager.swift in Sources */,
@@ -390,9 +432,11 @@
 				C8CB74E5261F736A00827779 /* NibNameLoadable+Extension.swift in Sources */,
 				C85A72182616433500A42DA6 /* CLLocationCoordinate2D+Extension.swift in Sources */,
 				C85CE03C261B1EB10099AB60 /* ReverseGeocodeLoggable+Extension.swift in Sources */,
+				C88C5AD226206511007ECAB7 /* SignUpViewController.swift in Sources */,
 				C88C5ABB26203F25007ECAB7 /* UserView.swift in Sources */,
 				C8A789C6261478E7002C24B4 /* SceneDelegate.swift in Sources */,
 				C85A72142616420C00A42DA6 /* Logger+Extension.swift in Sources */,
+				C88C5ACF262064FA007ECAB7 /* SignInViewController.swift in Sources */,
 				C84B8BFF261CA24C0027AD17 /* AlertShowable+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

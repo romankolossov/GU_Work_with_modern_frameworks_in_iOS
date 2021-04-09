@@ -7,7 +7,7 @@
 
 import UIKit
 
-class UserViewController: UIViewController {
+class UserViewController: UIViewController, AlertShowable {
 
     // MARK: - Private properties
 
@@ -35,29 +35,51 @@ class UserViewController: UIViewController {
     // MARK: - Actions
 
     @objc private func signUp() {
-//        let signUpViewController = SignUpViewController()
-//        signUpViewController.modalPresentationStyle = .formSheet
-//
-//        navigationController?.present(
-//            signUpViewController,
-//            animated: true,
-//            completion: nil
-//        )
+        let signUpViewController = SignUpViewController()
+        signUpViewController.modalPresentationStyle = .formSheet
+
+        navigationController?.present(
+            signUpViewController,
+            animated: true,
+            completion: nil
+        )
     }
 
     @objc private func signIn() {
-//        let signInViewController = SignInViewController()
-//        signInViewController.modalPresentationStyle = .formSheet
-//
-//        navigationController?.present(
-//            signInViewController,
-//            animated: true,
-//            completion: nil
-//        )
+        let signInViewController = SignInViewController()
+        signInViewController.modalPresentationStyle = .formSheet
+
+        navigationController?.present(
+            signInViewController,
+            animated: true,
+            completion: nil
+        )
     }
 
     @objc private func logout() {
         // MARK: TO DO
+
+        let resultWithLogoutSuccess: Int = 1
+        let result: Int = 1
+
+        guard result == resultWithLogoutSuccess else {
+            self.showAlert(
+                title: NSLocalizedString("logout", comment: ""),
+                message: NSLocalizedString("logoutFailure", comment: ""),
+                handler: nil,
+                completion: nil
+            )
+            return
+        }
+        // UserData.clearUser()
+        self.viewDidAppear(true)
+
+        self.showAlert(
+            title: NSLocalizedString("logout", comment: ""),
+            message: NSLocalizedString("logoutSuccess", comment: ""),
+            handler: nil,
+            completion: nil
+        )
     }
 
     @objc private func changeUserData() {
