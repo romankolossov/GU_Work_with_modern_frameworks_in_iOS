@@ -7,35 +7,48 @@
 
 import UIKit
 import GoogleMaps
+import RealmSwift
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable {
 
     // MARK: - Public properties
 
     public var publicMapView: GMSMapView {
         mapView
     }
+    public var publicLocationManager: CLLocationManager {
+        locationManager
+    }
     var manualMarker: GMSMarker?
-    let geocoder = CLGeocoder()
 
     // MARK: - Private properties
 
     private lazy var mapView: GMSMapView = {
         let view = GMSMapView()
+        view.delegate = self
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.delegate = self
         return view
     }()
     private lazy var locationManager: CLLocationManager = {
         let lm = CLLocationManager()
-        lm.requestWhenInUseAuthorization()
         lm.delegate = self
+        lm.allowsBackgroundLocationUpdates = true
+        lm.pausesLocationUpdatesAutomatically = false
+        lm.startMonitoringSignificantLocationChanges()
+        lm.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        lm.showsBackgroundLocationIndicator = true
+        lm.requestAlwaysAuthorization()
+        // lm.requestWhenInUseAuthorization()
         return lm
     }()
+    private(set) var route: GMSPolyline?
+    private(set) var routePath: GMSMutablePath?
     private var marker: GMSMarker?
+    private var drawingRoutePath: Bool = false
+    private let realmManager = RealmManager.shared
     private let coordinate = CLLocationCoordinate2D(
-        latitude: 55.753215, longitude: 37.622504) // Центр Москвы
+        latitude: 55.753215, longitude: 37.622504) // Moscow, Red square.
 
     // MARK: - Lifecycle
 
@@ -62,18 +75,100 @@ class MapViewController: UIViewController {
         mapView.animate(toLocation: coordinate)
     }
 
-    @objc func currentLocation() {
+    @objc private func currentLocation() {
         locationManager.requestLocation()
     }
 
-    @objc func updateLocation() {
+    @objc private func updateLocation() {
+        // Flag of draving route path in prgress to avoid load saved route path when draving new one.
+        drawingRoutePath = true
+        // Remove from the map old line.
+        route?.map = nil
+        // Replace old line by new one.
+        route = GMSPolyline()
+        route?.strokeWidth = 3
+        route?.strokeColor = .systemGreen
+        // Add the new line on the map.
+        route?.map = mapView
+        // Replace old path by empty (without points yet) new one.
+        routePath = GMSMutablePath()
+        // Start or continue updating location.
         locationManager.startUpdatingLocation()
     }
 
-    @objc func finishUpdateLocation() {
+    @objc private func finishUpdateLocation() {
+        var coordinates: [CLLocationCoordinate2D] = []
+        var latitudes: [Double] = []
+        var longitudes: [Double] = []
+
         locationManager.stopUpdatingLocation()
+
+        // Get coordinates of the route path points to get from them longs and lats.
+        for index: UInt in 0...(routePath?.count() ?? 0) {
+            guard let coordinate = routePath?.coordinate(at: index) else {
+                return
+            }
+            coordinates.append(coordinate)
+        }
+        // Remove by system automatically added for technical use the last point.
+        coordinates.removeLast()
+
+        // Get longs and lats to save them in the Realm.
+        coordinates.forEach { latitudes.append($0.latitude) }
+        coordinates.forEach { longitudes.append($0.longitude) }
+
+        // Save longs and lats of the points of the route path in Realm.
+        DispatchQueue.main.async { [weak self] in
+            let routePathElement = RoutePathElementData(latitudes: latitudes, longitudes: longitudes)
+            try? self?.realmManager?.deleteAll()
+            try? self?.realmManager?.add(object: routePathElement)
+        }
         mapView.clear()
         removeMarker()
+        // Stop driving route path flag to allow load saved route path.
+        drawingRoutePath = false
+    }
+
+    @objc private func restoreRoutePath() {
+        guard !drawingRoutePath else {
+            showAlert(
+                title: "Route path update",
+                message: "Route path is updating. To load saved route, please, finish drawing current route by pressing \"Stop\" button",
+                handler: nil,
+                completion: nil
+            )
+            return
+        }
+        var latitudes: [CLLocationDegrees] = []
+        var longitudes: [CLLocationDegrees] = []
+
+        // Load from Realm saved points of the last route path.
+        let routePathElements: Results<RoutePathElementData>? = realmManager?.getObjects()
+
+        // Get longs and lats.
+        routePathElements?.first?.latitudes.forEach { latitudes.append($0) }
+        routePathElements?.first?.longitudes.forEach { longitudes.append($0) }
+
+        // Remove from the map old line, replace it by the new one, add the new line on the map.
+        route?.map = nil
+        route = GMSPolyline()
+        route?.strokeWidth = 3
+        route?.strokeColor = .systemPurple
+        route?.map = mapView
+
+        // Replace old root path by one with loaded from Realm points in it.
+        routePath = GMSMutablePath()
+        for (index) in latitudes.indices {
+            routePath?.addLatitude(latitudes[index], longitude: longitudes[index])
+        }
+        route?.path = routePath
+
+        // Set the camera to fit the route path loaded.
+        guard let routePath = routePath else {
+            return
+        }
+        let bounds = GMSCoordinateBounds(path: routePath)
+        mapView.animate(with: GMSCameraUpdate.fit(bounds))
     }
 
     // MARK: - Private methods
@@ -108,7 +203,7 @@ class MapViewController: UIViewController {
             action: #selector(currentLocation)
         )
         let updateLocationItem = UIBarButtonItem(
-            image: UIImage(systemName: "arrow.triangle.2.circlepath"),
+            image: UIImage(systemName: "point.fill.topleft.down.curvedto.point.fill.bottomright.up"),
             style: .plain,
             target: self,
             action: #selector(updateLocation)
@@ -119,13 +214,19 @@ class MapViewController: UIViewController {
             target: self,
             action: #selector(finishUpdateLocation)
         )
+        let restoreRoutePathItem = UIBarButtonItem(
+            image: UIImage(systemName: "arrow.down.doc"),
+            style: .plain,
+            target: self,
+            action: #selector(restoreRoutePath)
+        )
         navigationItem.leftBarButtonItems = [
-            currentLocationItem, updateLocationItem, finisUpdateLocationItem
+            currentLocationItem, updateLocationItem, finisUpdateLocationItem, restoreRoutePathItem
         ]
     }
 
     private func configureMapVC() {
-        navigationItem.title = "Route tracker"
+        navigationItem.title = NSLocalizedString("routeTracker", comment: "")
         addSubviews()
         setupConstraints()
     }
@@ -153,6 +254,33 @@ class MapViewController: UIViewController {
         mapView.camera = camera
     }
 
+    private func addMarker() {
+        // Make a custom shape of the marker, for example as a red rectangle.
+/*
+        let rect = CGRect(x: 0, y: 0, width: 20, height: 20)
+        let view = UIView(frame: rect)
+        view.backgroundColor = .red
+*/
+        let marker = GMSMarker(position: coordinate)
+        marker.icon = GMSMarker.markerImage(with: .green)
+        // marker.icon = UIImage(systemName: "figure.walk") // Marker as an image.
+        // marker.iconView = view // Marker as a red rect.
+
+        marker.title = "Hello"
+        marker.snippet = "Red Square"
+
+        // Set where the marked coordinate relatively to the marker is, for example in the middle of the marker.
+        marker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
+
+        marker.map = mapView
+        self.marker = marker
+    }
+
+    private func removeMarker() {
+        marker?.map = nil
+        marker = nil
+    }
+    
     private func configureMapStyle() {
            let style = "[" +
                "  {" +
@@ -351,31 +479,5 @@ class MapViewController: UIViewController {
                print(error)
            }
        }
-
-    private func addMarker() {
-        // Make a custom shape of the marker, example as a red rectangle.
-//        let rect = CGRect(x: 0, y: 0, width: 20, height: 20)
-//        let view = UIView(frame: rect)
-//        view.backgroundColor = .red
-
-        let marker = GMSMarker(position: coordinate)
-        marker.icon = GMSMarker.markerImage(with: .green)
-        // marker.icon = UIImage(systemName: "figure.walk") // marker as an image
-        // marker.iconView = view // marker as a red rect
-
-        marker.title = "Hello"
-        marker.snippet = "Red Square"
-
-        // set where the marked coordinate relatively to the marker is, ehample in te middle of the marker
-        marker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
-
-        marker.map = mapView
-        self.marker = marker
-    }
-
-    private func removeMarker() {
-        marker?.map = nil
-        marker = nil
-    }
 
 }
