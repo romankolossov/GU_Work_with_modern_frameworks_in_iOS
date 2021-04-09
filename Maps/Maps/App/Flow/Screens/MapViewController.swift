@@ -185,28 +185,6 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
         navigationController?.navigationBar.tintColor = .navigationBarTintColor
         navigationController?.navigationBar.backgroundColor = .navigationBarBackgroundColor
 
-        let toggleMarkerItem = UIBarButtonItem(
-            image: UIImage(systemName: "checkmark.seal"),
-            style: .plain,
-            target: self,
-            action: #selector(toggleMarker)
-        )
-        let goToRedSquareItem = UIBarButtonItem(
-            image: UIImage(systemName: "arrow.down.right.and.arrow.up.left"),
-            style: .plain,
-            target: self,
-            action: #selector(goToRedSquare)
-        )
-        navigationItem.rightBarButtonItems = [
-            goToRedSquareItem, toggleMarkerItem
-        ]
-
-        let currentLocationItem = UIBarButtonItem(
-            image: UIImage(systemName: "location"),
-            style: .plain,
-            target: self,
-            action: #selector(currentLocation)
-        )
         let updateLocationItem = UIBarButtonItem(
             image: UIImage(systemName: "point.fill.topleft.down.curvedto.point.fill.bottomright.up"),
             style: .plain,
@@ -226,7 +204,29 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
             action: #selector(restoreRoutePath)
         )
         navigationItem.leftBarButtonItems = [
-            currentLocationItem, updateLocationItem, finisUpdateLocationItem, restoreRoutePathItem
+            updateLocationItem, finisUpdateLocationItem, restoreRoutePathItem
+        ]
+
+        let currentLocationItem = UIBarButtonItem(
+            image: UIImage(systemName: "location"),
+            style: .plain,
+            target: self,
+            action: #selector(currentLocation)
+        )
+        let toggleMarkerItem = UIBarButtonItem(
+            image: UIImage(systemName: "checkmark"),
+            style: .plain,
+            target: self,
+            action: #selector(toggleMarker)
+        )
+        let goToRedSquareItem = UIBarButtonItem(
+            image: UIImage(systemName: "arrow.down.right.and.arrow.up.left"),
+            style: .plain,
+            target: self,
+            action: #selector(goToRedSquare)
+        )
+        navigationItem.rightBarButtonItems = [
+            goToRedSquareItem, toggleMarkerItem, currentLocationItem
         ]
     }
 

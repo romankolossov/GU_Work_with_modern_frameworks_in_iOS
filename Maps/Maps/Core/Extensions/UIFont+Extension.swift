@@ -9,6 +9,10 @@ import UIKit
 
 extension UIFont {
 
+    // MARK: - User VC
+
+    static let userLableFont: UIFont = .preferredFont(forTextStyle: .body)
+
     // MARK: - Alerts
 
     static let alertTitleFont: UIFont = .preferredFont(forTextStyle: .headline)

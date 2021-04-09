@@ -32,8 +32,8 @@ class TabBarController: UITabBarController, NibNameLoadable {
         let mapViewController = MapViewController()
         let mapVCTabBarItem = UITabBarItem(
             title: nil,
-            image: UIImage(systemName: "house"),
-            selectedImage: UIImage(systemName: "house.fill")
+            image: UIImage(systemName: "map"),
+            selectedImage: UIImage(systemName: "map.fill")
         )
         mapViewController.tabBarItem = mapVCTabBarItem
 

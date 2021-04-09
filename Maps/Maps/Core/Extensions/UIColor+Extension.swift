@@ -27,6 +27,15 @@ extension UIColor {
     static let updateLocationStrokeColor: UIColor = .systemGreen
     static let restoreRoutePathStrokeColor: UIColor = .systemPurple
 
+    // MARK: - User VC
+
+    static let userLableTextColor: UIColor = .systemGray6
+
+    // MARK: - for the rest views
+
+    // custom yellow
+    static let suplimentaryViewBackgroundColor: UIColor = .init(red: 204 / 255, green: 155 / 255, blue: 33 / 255, alpha: 1.0)
+
     // MARK: - Alerts
 
     static let alertTitleTextColor: UIColor = tabBarTintColor
