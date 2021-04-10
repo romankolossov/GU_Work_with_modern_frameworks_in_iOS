@@ -23,6 +23,14 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
 
     // MARK: - Private properties
 
+    private(set) var route: GMSPolyline?
+    private(set) var routePath: GMSMutablePath?
+    private var marker: GMSMarker?
+    private var drawingRoutePath: Bool = false
+    private let realmManager = RealmManager.shared
+    private let coordinate = CLLocationCoordinate2D(
+        latitude: 55.753215, longitude: 37.622504) // Moscow, Red square.
+
     private lazy var mapView: GMSMapView = {
         let view = GMSMapView()
         view.delegate = self
@@ -42,13 +50,6 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
         // lm.requestWhenInUseAuthorization()
         return lm
     }()
-    private(set) var route: GMSPolyline?
-    private(set) var routePath: GMSMutablePath?
-    private var marker: GMSMarker?
-    private var drawingRoutePath: Bool = false
-    private let realmManager = RealmManager.shared
-    private let coordinate = CLLocationCoordinate2D(
-        latitude: 55.753215, longitude: 37.622504) // Moscow, Red square.
 
     // MARK: - Lifecycle
 

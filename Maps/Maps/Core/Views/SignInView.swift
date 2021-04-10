@@ -36,7 +36,7 @@ class SignInView: UIScrollView {
 
     private func addSubviews() {
         userNameTextField.translatesAutoresizingMaskIntoConstraints = false
-        userNameTextField.placeholder = " User name"
+        userNameTextField.placeholder = NSLocalizedString("loginTextFieldPlaceholder", comment: "")
         userNameTextField.textColor = .userTextFieldTextColor
         userNameTextField.textAlignment = .left
         userNameTextField.font = .userTextFieldFont
@@ -44,7 +44,7 @@ class SignInView: UIScrollView {
         userNameTextField.layer.cornerRadius = .textFieldCornerRadius
 
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
-        passwordTextField.placeholder = " Password"
+        passwordTextField.placeholder = NSLocalizedString("passwordTextFieldPlaceholder", comment: "")
         passwordTextField.textColor = .userTextFieldTextColor
         passwordTextField.textAlignment = .left
         passwordTextField.font = .userTextFieldFont

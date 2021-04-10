@@ -7,7 +7,7 @@
 
 import UIKit
 
-class UserViewController: UIViewController, AlertShowable {
+class UserViewController: UIViewController, AlertShowable, UsersInRealmErasable {
 
     // MARK: - Private properties
 
@@ -76,7 +76,7 @@ class UserViewController: UIViewController, AlertShowable {
             return
         }
         // LoggedUserData.clearUser()
-        self.viewDidAppear(true)
+        viewDidAppear(true)
 
         self.showAlert(
             title: NSLocalizedString("logout", comment: ""),
@@ -87,7 +87,8 @@ class UserViewController: UIViewController, AlertShowable {
     }
 
     @objc private func changeUserData() {
-        // MARK: TO DO
+        // Erase realm users database.
+        eraseUsersInRealm()
     }
 
     // MARK: - Private methods

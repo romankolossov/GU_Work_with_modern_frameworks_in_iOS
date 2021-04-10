@@ -18,7 +18,7 @@ extension UIColor {
 
     static let navigationBarLargeTitleTextColor: UIColor = tabBarTintColor
     static let navigationBarBackgroundColor: UIColor = tabBarBackgroundColor
-    static let navigationBarTintColor: UIColor = .systemOrange
+    static let navigationBarTintColor: UIColor = .systemBlue
 
     static let rootVCViewBackgroundColor: UIColor = tabBarBackgroundColor
 

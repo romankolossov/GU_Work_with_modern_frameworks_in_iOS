@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C84480F626219A00007DEAC8 /* UsersInRealmErasable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84480F526219A00007DEAC8 /* UsersInRealmErasable.swift */; };
 		C84B8BFF261CA24C0027AD17 /* AlertShowable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84B8BFE261CA24C0027AD17 /* AlertShowable+Extension.swift */; };
 		C85A72142616420C00A42DA6 /* Logger+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85A72132616420C00A42DA6 /* Logger+Extension.swift */; };
 		C85A72182616433500A42DA6 /* CLLocationCoordinate2D+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85A72172616433500A42DA6 /* CLLocationCoordinate2D+Extension.swift */; };
@@ -40,6 +41,7 @@
 		C8A789C8261478E7002C24B4 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A789C7261478E7002C24B4 /* MapViewController.swift */; };
 		C8A789CD261478EA002C24B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8A789CC261478EA002C24B4 /* Assets.xcassets */; };
 		C8A789D0261478EA002C24B4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8A789CE261478EA002C24B4 /* LaunchScreen.storyboard */; };
+		C8B573002621D0E0001616DE /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B572FF2621D0E0001616DE /* PasswordViewController.swift */; };
 		C8CB74E5261F736A00827779 /* NibNameLoadable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8CB74E4261F736A00827779 /* NibNameLoadable+Extension.swift */; };
 		C8F217D2261F267900457B1F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F217D1261F267900457B1F /* TabBarController.swift */; };
 		C8F217D9261F2BCC00457B1F /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F217D8261F2BCC00457B1F /* UIColor+Extension.swift */; };
@@ -47,6 +49,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C84480F526219A00007DEAC8 /* UsersInRealmErasable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersInRealmErasable.swift; sourceTree = "<group>"; };
 		C84B8BFE261CA24C0027AD17 /* AlertShowable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlertShowable+Extension.swift"; sourceTree = "<group>"; };
 		C85A72132616420C00A42DA6 /* Logger+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extension.swift"; sourceTree = "<group>"; };
 		C85A72172616433500A42DA6 /* CLLocationCoordinate2D+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Extension.swift"; sourceTree = "<group>"; };
@@ -79,6 +82,7 @@
 		C8A789CC261478EA002C24B4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C8A789CF261478EA002C24B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C8A789D1261478EA002C24B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C8B572FF2621D0E0001616DE /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
 		C8CB74E4261F736A00827779 /* NibNameLoadable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NibNameLoadable+Extension.swift"; sourceTree = "<group>"; };
 		C8F217D1261F267900457B1F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		C8F217D8261F2BCC00457B1F /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
@@ -130,6 +134,7 @@
 				C84B8BFE261CA24C0027AD17 /* AlertShowable+Extension.swift */,
 				C8CB74E4261F736A00827779 /* NibNameLoadable+Extension.swift */,
 				C88C5AC726206243007ECAB7 /* Shakable+Extension.swift */,
+				C84480F526219A00007DEAC8 /* UsersInRealmErasable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -259,6 +264,7 @@
 			children = (
 				C88C5ACE262064FA007ECAB7 /* SignInViewController.swift */,
 				C88C5AD126206511007ECAB7 /* SignUpViewController.swift */,
+				C8B572FF2621D0E0001616DE /* PasswordViewController.swift */,
 			);
 			path = SuplimentaryScreens;
 			sourceTree = "<group>";
@@ -427,12 +433,14 @@
 				C88C5ACB262063A0007ECAB7 /* CGFloat+Extension.swift in Sources */,
 				C88C5AC2262060EC007ECAB7 /* SignUpView.swift in Sources */,
 				C88C5AB7261F8232007ECAB7 /* UserRealm.swift in Sources */,
+				C84480F626219A00007DEAC8 /* UsersInRealmErasable.swift in Sources */,
 				C88C5AC5262061DE007ECAB7 /* ShakableViews.swift in Sources */,
 				C8F217D2261F267900457B1F /* TabBarController.swift in Sources */,
 				C8F217D9261F2BCC00457B1F /* UIColor+Extension.swift in Sources */,
 				C85CE04D261B79B90099AB60 /* RealmManager.swift in Sources */,
 				C866DA0726163E200028BAE1 /* MapViewController+MapView.swift in Sources */,
 				C8A789C4261478E7002C24B4 /* AppDelegate.swift in Sources */,
+				C8B573002621D0E0001616DE /* PasswordViewController.swift in Sources */,
 				C8CB74E5261F736A00827779 /* NibNameLoadable+Extension.swift in Sources */,
 				C85A72182616433500A42DA6 /* CLLocationCoordinate2D+Extension.swift in Sources */,
 				C85CE03C261B1EB10099AB60 /* ReverseGeocodeLoggable+Extension.swift in Sources */,

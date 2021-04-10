@@ -28,7 +28,8 @@
 "toSignUp" = "Зарегистрироваться";
 
 "signupSuccess" = "Регистрация прошла успешно";
-"signupFailure" = "Не удалось зарегистрироваться. Пожалуйста, проверьте заполнение полей логина и пароля или поменяйте логин";
+"signupFailure" = "Не удалось зарегистрироваться. Пожалуйста, проверьте что поля логина и пароля заполнены";
+"signupFailureWithSameLogin" = "Не удалось зарегистрироваться. Введенный логин уже используется. Пожалуйста, переопределите пароль для этого логина";
 
 // SignIn VC
 
@@ -40,7 +41,29 @@
 "signinSuccess" = "Вы успешно вошли в аккаунт";
 "signinFailure" = "Войти в аккаунт не удалось. Пожалуйста, повторите попытку позже";
 
+// Common for SignUp and SignIn VCs
+
+"loginTextFieldPlaceholder" = " Login (unique user name)";
+"passwordTextFieldPlaceholder" = " Пароль";
+
+// Password VC
+
+"passwordRedefining" = "Переопределение пароля";
+"passwordSaving" = "Запись пароля";
+
+"savePassword" = "Записать пароль";
+"passwordSaveFailureWithEmtyTextField" = "Перезапись пароля не выполнена. Пожалуйста, проверьте что поле пароля заполнено";
+"passwordSaveSuccess" = "Пароль был перезаписан";
+
 // Alerts
 
 "close" = "Закрыть";
+"cancel" = "Отменить";
+
+"usersAction" = "Данные пользователей";
+"usersActionMessage" = "Вы хотите удалить всех пользователей из базы данных?";
+"eraseUsers" = "Удалить пользователей";
+
+"changeUserData" = "Изменения данных пользователей";
+"usersDataErased" = "База данных пользователей очищена";
 

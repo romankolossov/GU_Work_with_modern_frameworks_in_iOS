@@ -8,9 +8,19 @@
 import UIKit
 import RealmSwift
 
+protocol SignUpViewControllerDelegate: class {
+    func userWhosePasswordMustBeChanged(_ user: User?)
+}
+
 class SignUpViewController: UIViewController, AlertShowable {
 
+    // MARK: - Public properties
+
+    weak var delegate: SignUpViewControllerDelegate?
+
     // MARK: - Private properties
+    private let realmManager = RealmManager.shared
+    private var userToChangePassword: User?
 
     private lazy var signUpView: SignUpView = {
         let view = SignUpView()
@@ -51,7 +61,6 @@ class SignUpViewController: UIViewController, AlertShowable {
         navigationBar.barTintColor = .customNavigationBarTintColor
         return navigationBar
     }()
-    private let realmManager = RealmManager.shared
 
     // MARK: - Lifecycle
 
@@ -111,23 +120,57 @@ class SignUpViewController: UIViewController, AlertShowable {
         // Get all logins.
         let logins = Array(users).map { $0.login }
 
+        // After alert Close pressed, dismiss SignUpVC screen to move to User VC screen
         let handler: ((UIAlertAction) -> Void)? = { [weak self] _ in
-            // After alert OK pressed, dismiss SignUpVC screen to move to User VC screen
             self?.dismiss(animated: true, completion: nil)
         }
+
+        // After alert Close pressed, present password view controller to enter new password.
+        let saveNewPasswordWhenSameLoginHandler: ((UIAlertAction) -> Void)? = { [weak self] _ in
+            let passwordViewController = PasswordViewController()
+            passwordViewController.modalPresentationStyle = .formSheet
+
+            self?.present(
+                passwordViewController,
+                animated: true,
+                completion: nil
+            )
+        }
+
+        // Check that text fields is not empty.
         guard let login = signUpView.userNameTextField.text,
-              // Check that fields is not be empty.
               let password = signUpView.passwordTextField.text,
-              // Check that entered login is not used before.
-              !logins.contains(login) else {
-            self.showAlert(
+              !login.isEmpty, !password.isEmpty else {
+            showAlert(
                 title: NSLocalizedString("signup", comment: ""),
-                message: NSLocalizedString("signupFailure", comment: ""),
-                handler: handler,
+                message: NSLocalizedString("signupFailureWithEmptyTextFields", comment: ""),
+                handler: nil,
                 completion: nil
             )
             return
         }
+
+        // Check that entered login is not used before.
+        // If used, make request for password change fot the login.
+        guard !logins.contains(login) else {
+            Array(users).forEach { user in
+                guard user.login == login else { return }
+                userToChangePassword = user
+            }
+            #if DEBUG
+            print(userToChangePassword as Any, "from ", #function)
+            #endif
+            delegate?.userWhosePasswordMustBeChanged(userToChangePassword)
+            
+            showAlert(
+                title: NSLocalizedString("signup", comment: ""),
+                message: NSLocalizedString("signupFailureWithSameLogin", comment: ""),
+                handler: saveNewPasswordWhenSameLoginHandler,
+                completion: nil
+            )
+            return
+        }
+
         DispatchQueue.main.async { [weak self] in
             let user = User(
                 login: login,
@@ -135,7 +178,7 @@ class SignUpViewController: UIViewController, AlertShowable {
             )
             try? self?.realmManager?.add(object: user)
         }
-        self.showAlert(
+        showAlert(
             title: NSLocalizedString("signup", comment: ""),
             message: NSLocalizedString("signupSuccess", comment: ""),
             handler: handler,

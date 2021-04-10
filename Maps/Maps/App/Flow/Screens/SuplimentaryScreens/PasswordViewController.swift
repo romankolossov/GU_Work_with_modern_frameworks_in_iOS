@@ -1,28 +1,28 @@
 //
-//  SignInViewController.swift
+//  PasswordViewController.swift
 //  Maps
 //
-//  Created by Roman Kolosov on 09.04.2021.
+//  Created by Roman Kolosov on 10.04.2021.
 //
 
 import UIKit
-// import RealmSwift
 
-class SignInViewController: UIViewController, AlertShowable {
+class PasswordViewController: UIViewController, AlertShowable {
 
     // MARK: - Private properties
 
-    // private let realmManager = RealmManager.shared
+    private let signUpViewController = SignUpViewController()
+    private var userToChangePassword: User?
 
-    private lazy var signInView: SignInView = {
+    private lazy var passwordView: SignInView = {
         let view = SignInView()
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    private lazy var signInButton: ShakableButton = {
+    private lazy var savePasswordButton: ShakableButton = {
         let button = ShakableButton()
-        button.setTitle(NSLocalizedString("toSignIn", comment: "Sign in"), for: .normal)
+        button.setTitle(NSLocalizedString("savePassword", comment: ""), for: .normal)
         button.setTitleColor(.buttonTitleColor, for: .normal)
         button.setTitleColor(.buttonTitleColorWhenHighlighted, for: .highlighted)
         button.backgroundColor = .buttonBackgroundColor
@@ -44,7 +44,7 @@ class SignInViewController: UIViewController, AlertShowable {
             height: .navigationBarHeight
         )
         let navigationItem = UINavigationItem()
-        navigationItem.title = NSLocalizedString("signin", comment: "")
+        navigationItem.title = NSLocalizedString("passwordRedefining", comment: "")
 
         let navigationBar = UINavigationBar(frame: frame)
         navigationBar.items = [navigationItem]
@@ -60,11 +60,12 @@ class SignInViewController: UIViewController, AlertShowable {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureSignInVC()
+        signUpViewController.delegate = self
+        configurePasswordVC()
 
         // MARK: Targets
 
-        signInButton.addTarget(self, action: #selector(signIn), for: .touchUpInside)
+        savePasswordButton.addTarget(self, action: #selector(savePassword), for: .touchUpInside)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -85,7 +86,7 @@ class SignInViewController: UIViewController, AlertShowable {
             target: self,
             action: #selector(hideKeyboard)
         )
-        signInView.addGestureRecognizer(tapGesture)
+        passwordView.addGestureRecognizer(tapGesture)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -104,38 +105,28 @@ class SignInViewController: UIViewController, AlertShowable {
 
     // MARK: - Actions
 
-    // MARK: Signin
+    // MARK: Save password
 
-    @objc private func signIn() {
-        signInButton.shake() // Animation when the signInButton is tapped.
+    @objc private func savePassword() {
+        savePasswordButton.shake() // Animation when the signInButton is tapped.
 
-        // MARK: TO DO
-
-        let resultWithSignInSuccess: Int = 1
-        let result: Int = 1
-
+        // After alert OK pressed, dismiss PasswordVC screen to move to User VC screen
         let handler: ((UIAlertAction) -> Void)? = { [weak self] _ in
-            // After alert OK pressed, dismiss SignInVC screen to move to User VC screen
             self?.dismiss(animated: true, completion: nil)
         }
-        guard result == resultWithSignInSuccess else {
-            self.showAlert(
-                title: NSLocalizedString("signin", comment: ""),
-                message: NSLocalizedString("signinFailure", comment: ""),
-                handler: handler,
+
+        guard let password = passwordView.passwordTextField.text, !password.isEmpty else {
+            showAlert(
+                title: NSLocalizedString("passwordSaving", comment: ""),
+                message: NSLocalizedString("passwordSaveFailureWithEmtyTextField", comment: ""),
+                handler: nil,
                 completion: nil
             )
             return
         }
-//        LoggedUserData.saveUser(
-//            id: model.user.id,
-//            login: model.user.login,
-//            name: model.user.name,
-//            lastName: model.user.lastname
-//        )
-        self.showAlert(
-            title: NSLocalizedString("signin", comment: ""),
-            message: NSLocalizedString("signinSuccess", comment: ""),
+        showAlert(
+            title: NSLocalizedString("passwordSaving", comment: ""),
+            message: NSLocalizedString("passwordSaveSuccess", comment: ""),
             handler: handler,
             completion: nil
         )
@@ -156,51 +147,62 @@ class SignInViewController: UIViewController, AlertShowable {
             bottom: keyboardSize?.height ?? 0.0,
             right: 0.0
         )
-        signInView.contentInset = contentInsets
-        signInView.scrollIndicatorInsets = contentInsets
+        passwordView.contentInset = contentInsets
+        passwordView.scrollIndicatorInsets = contentInsets
     }
 
     @objc func keyboardWillBeHiden(notification: Notification) {
-        signInView.contentInset = UIEdgeInsets.zero
-        signInView.scrollIndicatorInsets = UIEdgeInsets.zero
+        passwordView.contentInset = UIEdgeInsets.zero
+        passwordView.scrollIndicatorInsets = UIEdgeInsets.zero
     }
 
     @objc func hideKeyboard() {
-        signInView.endEditing(true)
+        passwordView.endEditing(true)
     }
 
     // MARK: - Private methods
 
     // MARK: Configure
 
-    private func configureSignInVC() {
+    private func configurePasswordVC() {
         addSubviews()
         setupConstraints()
     }
 
     private func addSubviews() {
-        view.addSubview(signInView)
-        view.addSubview(signInButton)
+        view.addSubview(passwordView)
+        view.addSubview(savePasswordButton)
         view.addSubview(navigationBar)
     }
 
     private func setupConstraints() {
         let safeArea = view.safeAreaLayoutGuide
 
-        let signInViewConstraints = [
-            signInView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: .navigationBarHeight),
-            signInView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
-            signInView.widthAnchor.constraint(equalTo: safeArea.widthAnchor),
-            signInView.bottomAnchor.constraint(equalTo: signInButton.topAnchor)
+        let passwordViewConstraints = [
+            passwordView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: .navigationBarHeight),
+            passwordView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            passwordView.widthAnchor.constraint(equalTo: safeArea.widthAnchor),
+            passwordView.bottomAnchor.constraint(equalTo: savePasswordButton.topAnchor)
         ]
-        let signInButtonConstraints = [
-            signInButton.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
-            signInButton.widthAnchor.constraint(equalTo: safeArea.widthAnchor),
-            signInButton.heightAnchor.constraint(equalToConstant: .buttonHeight),
-            signInButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
+        let savePasswordButtonConstraints = [
+            savePasswordButton.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            savePasswordButton.widthAnchor.constraint(equalTo: safeArea.widthAnchor),
+            savePasswordButton.heightAnchor.constraint(equalToConstant: .buttonHeight),
+            savePasswordButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ]
-        NSLayoutConstraint.activate(signInViewConstraints)
-        NSLayoutConstraint.activate(signInButtonConstraints)
+        NSLayoutConstraint.activate(passwordViewConstraints)
+        NSLayoutConstraint.activate(savePasswordButtonConstraints)
     }
 
+}
+
+// MARK: - SignUpViewControllerDelegate
+
+extension PasswordViewController: SignUpViewControllerDelegate {
+    func userWhosePasswordMustBeChanged(_ user: User?) {
+        userToChangePassword = user
+        #if DEBUG
+        print(user as Any, "from ", #function)
+        #endif
+    }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol NibNameLoadable where Self: UIResponder { }
+protocol NibNameLoadable where Self: UIViewController { }
 
 extension NibNameLoadable {
     static var nibName: String? {
