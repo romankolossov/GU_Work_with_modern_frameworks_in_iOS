@@ -11,13 +11,14 @@ class UserViewController: UIViewController, AlertShowable, UsersInRealmErasable 
 
     // MARK: - Private properties
 
+    private var loggedUserData: LoggedUserData?
+
     private lazy var userView: UserView = {
         let view = UserView()
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    // private var userData: LoggedUserData?
 
     // MARK: - Lifecycle
 
@@ -28,7 +29,7 @@ class UserViewController: UIViewController, AlertShowable, UsersInRealmErasable 
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // userData = LoggedUserData.getUser()
+        loggedUserData = LoggedUserData.getUser()
         configureUserVCLook()
     }
 
@@ -57,25 +58,20 @@ class UserViewController: UIViewController, AlertShowable, UsersInRealmErasable 
     }
 
     @objc private func logout() {
-        // MARK: TO DO
-//        guard let userData = userData else {
-//            return
-//        }
-//        let id = String(userData.user.id)
 
-        let resultWithLogoutSuccess: Int = 1
-        let result: Int = 1
-
-        guard result == resultWithLogoutSuccess else {
+        // Check that user is logged in.
+        guard let log = loggedUserData?.user.login, !log.isEmpty else {
             self.showAlert(
                 title: NSLocalizedString("logout", comment: ""),
-                message: NSLocalizedString("logoutFailure", comment: ""),
+                message: NSLocalizedString("logoutFailureWithNoLoggedUser", comment: ""),
                 handler: nil,
                 completion: nil
             )
             return
         }
-        // LoggedUserData.clearUser()
+
+        // Clear logged user data from user defaults.
+        LoggedUserData.clearUser()
         viewDidAppear(true)
 
         self.showAlert(
@@ -96,15 +92,15 @@ class UserViewController: UIViewController, AlertShowable, UsersInRealmErasable 
     // MARK: Configure
 
     private func configureUserVCLook() {
-//        guard let userData = userData else {
-//            return
-//        }
-//        navigationItem.title = "\(NSLocalizedString("userVCName", comment: "Hi")), \(userData.user.name)"
-//
-//        userView.idLabel.text = String(userData.user.id)
-//        userView.userNameLabel.text = userData.user.name
-//        userView.passwordLabel.text = userData.user.lastname
-//        userView.emailLabel.text = userData.user.login
+        guard let loggedUserData = loggedUserData, !loggedUserData.user.login.isEmpty else {
+            navigationItem.title = "\(NSLocalizedString("userVCName", comment: "Hi")), User"
+            userView.userNameLabel.text = ""
+            userView.passwordLabel.text = ""
+            return
+        }
+        navigationItem.title = "\(NSLocalizedString("userVCName", comment: "Hi")), \(loggedUserData.user.login)"
+        userView.userNameLabel.text = loggedUserData.user.login
+        userView.passwordLabel.text = loggedUserData.user.password
     }
 
     private func configureUserVC() {

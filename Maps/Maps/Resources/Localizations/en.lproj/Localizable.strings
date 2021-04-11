@@ -13,7 +13,7 @@
 // User VC
 
 "userVCName" = "Hi";
-"customer" = "dear customer";
+//"user" = "dear user";
 
 "logout" = "Logout";
 
@@ -39,7 +39,10 @@
 "toSignIn" = "Sign in";
 
 "signinSuccess" = "Signin success";
-"signinFailure" = "Signin failure. Plese, try later";
+
+"signinFailureWithAleadyLoggedUser" = "Signin failure. User is already logged in. Please, first perform logout and signin after";
+"signinFailureWithEmptyTextFields" = "Signin failure. Please, check that login and password fields are not empty";
+"signinFailureWithWrongLoginOrPassword" = "Signin failure. Entered login/password is wrong";
 
 // Common for SignUp and SignIn VCs
 

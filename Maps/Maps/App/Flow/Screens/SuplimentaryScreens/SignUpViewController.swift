@@ -20,7 +20,6 @@ class SignUpViewController: UIViewController, AlertShowable {
 
     // MARK: - Private properties
     private let realmManager = RealmManager.shared
-    private var userToChangePassword: User?
 
     private lazy var signUpView: SignUpView = {
         let view = SignUpView()
@@ -116,10 +115,6 @@ class SignUpViewController: UIViewController, AlertShowable {
         // Animation when the signUpButton is tapped.
         signUpButton.shake()
 
-        guard let users: Results<User> = realmManager?.getObjects() else { return }
-        // Get all logins.
-        let logins = Array(users).map { $0.login }
-
         // After alert Close pressed, dismiss SignUpVC screen to move to User VC screen
         let handler: ((UIAlertAction) -> Void)? = { [weak self] _ in
             self?.dismiss(animated: true, completion: nil)
@@ -137,7 +132,7 @@ class SignUpViewController: UIViewController, AlertShowable {
             )
         }
 
-        // Check that text fields is not empty.
+        // Check that text fields are not empty.
         guard let login = signUpView.userNameTextField.text,
               let password = signUpView.passwordTextField.text,
               !login.isEmpty, !password.isEmpty else {
@@ -150,6 +145,13 @@ class SignUpViewController: UIViewController, AlertShowable {
             return
         }
 
+        // Get all users.
+        guard let users: Results<User> = realmManager?.getObjects() else { return }
+        // Get all logins.
+        let logins = Array(users).map { $0.login }
+
+        var userToChangePassword: User?
+
         // Check that entered login is not used before.
         // If used, make request for password change fot the login.
         guard !logins.contains(login) else {
@@ -161,7 +163,8 @@ class SignUpViewController: UIViewController, AlertShowable {
             print(userToChangePassword as Any, "from ", #function)
             #endif
             delegate?.userWhosePasswordMustBeChanged(userToChangePassword)
-            
+            userToChangePassword = nil
+
             showAlert(
                 title: NSLocalizedString("signup", comment: ""),
                 message: NSLocalizedString("signupFailureWithSameLogin", comment: ""),
@@ -171,6 +174,7 @@ class SignUpViewController: UIViewController, AlertShowable {
             return
         }
 
+        // Save user in Realm.
         DispatchQueue.main.async { [weak self] in
             let user = User(
                 login: login,

@@ -6,13 +6,14 @@
 //
 
 import UIKit
-// import RealmSwift
+import RealmSwift
 
 class SignInViewController: UIViewController, AlertShowable {
 
     // MARK: - Private properties
 
-    // private let realmManager = RealmManager.shared
+    private let realmManager = RealmManager.shared
+    private var loggedUserData: LoggedUserData?
 
     private lazy var signInView: SignInView = {
         let view = SignInView()
@@ -88,6 +89,11 @@ class SignInViewController: UIViewController, AlertShowable {
         signInView.addGestureRecognizer(tapGesture)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loggedUserData = LoggedUserData.getUser()
+    }
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(
@@ -107,32 +113,66 @@ class SignInViewController: UIViewController, AlertShowable {
     // MARK: Signin
 
     @objc private func signIn() {
-        signInButton.shake() // Animation when the signInButton is tapped.
+        // Animation when the signInButton is tapped.
+        signInButton.shake()
 
-        // MARK: TO DO
-
-        let resultWithSignInSuccess: Int = 1
-        let result: Int = 1
-
+        // After alert Close pressed, dismiss SignInVC screen to move to User VC screen
         let handler: ((UIAlertAction) -> Void)? = { [weak self] _ in
-            // After alert OK pressed, dismiss SignInVC screen to move to User VC screen
             self?.dismiss(animated: true, completion: nil)
         }
-        guard result == resultWithSignInSuccess else {
-            self.showAlert(
+
+        // Cancel login if user already logged in.
+        guard let log = loggedUserData?.user.login, log.isEmpty else {
+            showAlert(
                 title: NSLocalizedString("signin", comment: ""),
-                message: NSLocalizedString("signinFailure", comment: ""),
+                message: NSLocalizedString("signinFailureWithAleadyLoggedUser", comment: ""),
                 handler: handler,
                 completion: nil
             )
             return
         }
-//        LoggedUserData.saveUser(
-//            id: model.user.id,
-//            login: model.user.login,
-//            name: model.user.name,
-//            lastName: model.user.lastname
-//        )
+
+        // Check that text fields are not empty.
+        guard let login = signInView.userNameTextField.text,
+              let password = signInView.passwordTextField.text,
+              !login.isEmpty, !password.isEmpty else {
+            showAlert(
+                title: NSLocalizedString("signin", comment: ""),
+                message: NSLocalizedString("signinFailureWithEmptyTextFields", comment: ""),
+                handler: nil,
+                completion: nil
+            )
+            return
+        }
+
+        // Get all users.
+        guard let users: Results<User> = realmManager?.getObjects() else { return }
+
+        var permittedToLoginUser: User?
+
+        // Check that entered user's login and password is in database.
+        Array(users).forEach { user in
+            guard user.login == login else { return }
+            guard user.password == password else { return }
+            permittedToLoginUser = user
+        }
+        guard let permittedToLoginUserRevealed = permittedToLoginUser else {
+            showAlert(
+                title: NSLocalizedString("signin", comment: ""),
+                message: NSLocalizedString("signinFailureWithWrongLoginOrPassword", comment: ""),
+                handler: handler,
+                completion: nil
+            )
+            return
+        }
+
+        // Save logged user data in user defaults for the later use in the logged user sesion.
+        LoggedUserData.saveUser(
+            login: permittedToLoginUserRevealed.login,
+            password: permittedToLoginUserRevealed.password
+        )
+        permittedToLoginUser = nil
+
         self.showAlert(
             title: NSLocalizedString("signin", comment: ""),
             message: NSLocalizedString("signinSuccess", comment: ""),

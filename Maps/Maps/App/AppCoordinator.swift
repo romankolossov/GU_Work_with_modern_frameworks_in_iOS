@@ -34,7 +34,7 @@ class LoggedUserData {
         let defaults = UserDefaults.standard
 
         let userData = LoggedUserData(
-            login: defaults.string(forKey: "login") ?? NSLocalizedString("customer", comment: ""),
+            login: defaults.string(forKey: "login") ?? "",
             password: defaults.string(forKey: "password") ?? ""
         )
         return userData
