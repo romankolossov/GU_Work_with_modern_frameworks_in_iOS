@@ -13,12 +13,12 @@
 // User VC
 
 "userVCName" = "Hi";
-//"user" = "dear user";
+"user" = "User";
 
 "logout" = "Logout";
 
 "logoutSuccess" = "You have logged out";
-"logoutFailure" = "Logout failed. Plese, try later";
+"logoutFailureWithNoLoggedUser" = "Logout failed. No user is logged in";
 
 // SignUp VC
 

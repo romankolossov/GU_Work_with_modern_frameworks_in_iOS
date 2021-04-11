@@ -92,13 +92,18 @@ class UserViewController: UIViewController, AlertShowable, UsersInRealmErasable 
     // MARK: Configure
 
     private func configureUserVCLook() {
-        guard let loggedUserData = loggedUserData, !loggedUserData.user.login.isEmpty else {
-            navigationItem.title = "\(NSLocalizedString("userVCName", comment: "Hi")), User"
+        guard let loggedUserData = loggedUserData,
+              !loggedUserData.user.login.isEmpty else {
+            navigationItem.title =
+                "\(NSLocalizedString("userVCName", comment: "Hi")), \(NSLocalizedString("user", comment: "User"))"
+
             userView.userNameLabel.text = ""
             userView.passwordLabel.text = ""
             return
         }
-        navigationItem.title = "\(NSLocalizedString("userVCName", comment: "Hi")), \(loggedUserData.user.login)"
+        navigationItem.title =
+            "\(NSLocalizedString("userVCName", comment: "Hi")), \(loggedUserData.user.login)"
+
         userView.userNameLabel.text = loggedUserData.user.login
         userView.passwordLabel.text = loggedUserData.user.password
     }
