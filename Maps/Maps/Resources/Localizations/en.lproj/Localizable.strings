@@ -29,7 +29,7 @@
 
 "signupSuccess" = "Registration passed";
 "signupFailureWithEmptyTextFields" = "Registration failed. Plese, check that login and password fields are not empty";
-"signupFailureWithSameLogin" = "Registration failed. Entered login in use. Plese, redefine password for the login";
+"signupFailureWithSameLogin" = "Registration failed. Entered login in use. Plese, redefine password for this login";
 
 // SignIn VC
 

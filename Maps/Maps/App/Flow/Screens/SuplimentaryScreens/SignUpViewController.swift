@@ -130,6 +130,12 @@ class SignUpViewController: UIViewController, AlertShowable {
                 animated: true,
                 completion: nil
             )
+
+            // The case of use the app router to navigate through the app. Here a test use done.
+            /*
+            self?.dismiss(animated: true, completion: nil)
+            AppRouter.router.go(controller: passwordViewController, mode: .modal, animated: true, modalTransitionStyle: .coverVertical)
+             */
         }
 
         // Check that text fields are not empty.
@@ -153,7 +159,7 @@ class SignUpViewController: UIViewController, AlertShowable {
         var userToChangePassword: User?
 
         // Check that entered login is not used before.
-        // If used, make request for password change fot the login.
+        // If used, make request for password change for this login.
         guard !logins.contains(login) else {
             Array(users).forEach { user in
                 guard user.login == login else { return }

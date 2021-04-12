@@ -11,9 +11,12 @@ class PasswordViewController: UIViewController, AlertShowable {
 
     // MARK: - Private properties
 
-    private let signUpViewController = SignUpViewController()
     private var userToChangePassword: User?
 
+    private lazy var signUpViewController: SignUpViewController = {
+        let vc = SignUpViewController()
+        return vc
+    }()
     private lazy var passwordView: SignInView = {
         let view = SignInView()
         view.clipsToBounds = true
@@ -60,8 +63,8 @@ class PasswordViewController: UIViewController, AlertShowable {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        signUpViewController.delegate = self
         configurePasswordVC()
+        signUpViewController.delegate = self
 
         // MARK: Targets
 

@@ -24,6 +24,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tabBarController = TabBarController()
         self.window?.rootViewController = tabBarController
 
+        // MARK: The case of use the app router to navigate through the app.
+        // Test use see in the SignUp view controller.
+
+        // AppRouter.create(self, controller: tabBarController)
+
         // MARK: Set dark InterfaceStyle
 
         self.window?.overrideUserInterfaceStyle = .dark
