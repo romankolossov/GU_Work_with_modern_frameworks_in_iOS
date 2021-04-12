@@ -13,13 +13,42 @@ class SignUpView: UIScrollView {
 
     // MARK: Subviews
 
-    let idTextField = UITextField()
-    let userNameTextField = UITextField()
-    let passwordTextField = UITextField()
-    let emailTextField = UITextField()
-    let genderTextField = UITextField()
-    let creditCardTextField = UITextField()
-    let bioTextField = UITextField()
+    lazy var idTextField: UITextField = {
+        let tf = UITextField()
+        tf.autocorrectionType = .no
+        return tf
+    }()
+    lazy var userNameTextField: UITextField = {
+        let tf = UITextField()
+        tf.autocorrectionType = .no
+        return tf
+    }()
+    lazy var passwordTextField: UITextField = {
+        let tf = UITextField()
+        tf.isSecureTextEntry = true
+        tf.autocorrectionType = .no
+        return tf
+    }()
+    lazy var emailTextField: UITextField = {
+        let tf = UITextField()
+        tf.autocorrectionType = .no
+        return tf
+    }()
+    lazy var genderTextField: UITextField = {
+        let tf = UITextField()
+        tf.autocorrectionType = .no
+        return tf
+    }()
+    lazy var creditCardTextField: UITextField = {
+        let tf = UITextField()
+        tf.autocorrectionType = .no
+        return tf
+    }()
+    lazy var bioTextField: UITextField = {
+        let tf = UITextField()
+        tf.autocorrectionType = .no
+        return tf
+    }()
 
     // MARK: - Initializers
 

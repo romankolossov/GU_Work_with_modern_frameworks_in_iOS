@@ -13,8 +13,17 @@ class SignInView: UIScrollView {
 
     // MARK: Subviews
 
-    let userNameTextField = UITextField()
-    let passwordTextField = UITextField()
+    lazy var userNameTextField: UITextField = {
+        let tf = UITextField()
+        tf.autocorrectionType = .no
+        return tf
+    }()
+    lazy var passwordTextField: UITextField = {
+        let tf = UITextField()
+        tf.isSecureTextEntry = true
+        tf.autocorrectionType = .no
+        return tf
+    }()
 
     // MARK: - Initializers
 
