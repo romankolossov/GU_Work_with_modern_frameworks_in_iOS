@@ -48,6 +48,7 @@
 		C8EC58F42624C272004CCCC9 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EC58F32624C272004CCCC9 /* UIViewController+Extension.swift */; };
 		C8EC58FC2626BA01004CCCC9 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = C8EC58FB2626BA01004CCCC9 /* RxCocoa */; };
 		C8EC58FE2626BA01004CCCC9 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C8EC58FD2626BA01004CCCC9 /* RxSwift */; };
+		C8EC5902262832BD004CCCC9 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EC5901262832BD004CCCC9 /* LocationManager.swift */; };
 		C8F217D2261F267900457B1F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F217D1261F267900457B1F /* TabBarController.swift */; };
 		C8F217D9261F2BCC00457B1F /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F217D8261F2BCC00457B1F /* UIColor+Extension.swift */; };
 		C8F217DC261F2E9400457B1F /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F217DB261F2E9400457B1F /* UserViewController.swift */; };
@@ -92,6 +93,7 @@
 		C8EC58ED2624AFEA004CCCC9 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		C8EC58F02624B079004CCCC9 /* AppRouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouterProtocol.swift; sourceTree = "<group>"; };
 		C8EC58F32624C272004CCCC9 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		C8EC5901262832BD004CCCC9 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		C8F217D1261F267900457B1F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		C8F217D8261F2BCC00457B1F /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		C8F217DB261F2E9400457B1F /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				C85CE04B261B79720099AB60 /* Realm */,
+				C8EC5901262832BD004CCCC9 /* LocationManager.swift */,
 			);
 			path = BusinessLogic;
 			sourceTree = "<group>";
@@ -446,6 +449,7 @@
 				C85CE051261B7BD20099AB60 /* RoutePathRealm.swift in Sources */,
 				C8EC58EE2624AFEA004CCCC9 /* AppRouter.swift in Sources */,
 				C8A789C8261478E7002C24B4 /* MapViewController.swift in Sources */,
+				C8EC5902262832BD004CCCC9 /* LocationManager.swift in Sources */,
 				C88C5AC826206243007ECAB7 /* Shakable+Extension.swift in Sources */,
 				C8F217DC261F2E9400457B1F /* UserViewController.swift in Sources */,
 				C88C5ACB262063A0007ECAB7 /* CGFloat+Extension.swift in Sources */,
