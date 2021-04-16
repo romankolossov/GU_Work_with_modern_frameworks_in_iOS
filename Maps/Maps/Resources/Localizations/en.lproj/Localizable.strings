@@ -6,4 +6,66 @@
   
 */
 
+// Map VC
+
 "routeTracker" = "Route tracker";
+
+// User VC
+
+"userVCName" = "Hi";
+"user" = "User";
+
+"logout" = "Logout";
+
+"logoutSuccess" = "You have logged out";
+"logoutFailureWithNoLoggedUser" = "Logout failed. No user is logged in";
+
+// SignUp VC
+
+// state
+"signup" = "Signup";
+// action
+"toSignUp" = "Sign up";
+
+"signupSuccess" = "Registration passed";
+"signupFailureWithEmptyTextFields" = "Registration failed. Plese, check that login and password fields are not empty";
+"signupFailureWithSameLogin" = "Registration failed. Entered login in use. Plese, redefine password for this login";
+
+// SignIn VC
+
+// state
+"signin" = "Signin";
+// action
+"toSignIn" = "Sign in";
+
+"signinSuccess" = "Signin success";
+
+"signinFailureWithAleadyLoggedUser" = "Signin failure. User is already logged in. Please, first perform logout and signin after";
+"signinFailureWithEmptyTextFields" = "Signin failure. Please, check that login and password fields are not empty";
+"signinFailureWithWrongLoginOrPassword" = "Signin failure. Entered login/password is wrong";
+
+// Common for SignUp and SignIn VCs
+
+"loginTextFieldPlaceholder" = " Login (unique user name)";
+"passwordTextFieldPlaceholder" = " Password";
+
+// Password VC
+
+"passwordRedefining" = "Password redefining";
+"passwordSaving" = "Password saving";
+
+"savePassword" = "Save password";
+"passwordSaveFailureWithEmtyTextField" = "Password save failure. Please, check that password field is not empty";
+"passwordSaveSuccess" = "Password was saved";
+
+// Alerts
+
+"close" = "Close";
+"cancel" = "Cancel";
+
+"usersAction" = "Users data action";
+"usersActionMessage" = "Do You want to erase all users data from database?";
+"eraseUsers" = "Erase users";
+
+"changeUserData" = "Users data change";
+"usersDataErased" = "Users data was erased";

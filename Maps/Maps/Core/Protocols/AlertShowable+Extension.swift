@@ -19,25 +19,25 @@ extension AlertShowable {
         let alertController = UIAlertController(
             title: "",
             message: message,
-            preferredStyle: .actionSheet
+            preferredStyle: .alert
         )
-        alertController.view.tintColor = .systemPurple
+        alertController.view.tintColor = .alertViewTintColor
 
         let alertTitle = NSMutableAttributedString(
             string: title ?? "",
             attributes: [
-                NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline)
+                NSAttributedString.Key.font: UIFont.alertTitleFont
             ]
         )
         alertTitle.addAttribute(
             NSAttributedString.Key.foregroundColor,
-            value: UIColor.systemPurple,
+            value: UIColor.alertTitleTextColor,
             range: NSRange(location: 0, length: title?.count ?? 0)
         )
         alertController.setValue(alertTitle, forKey: "attributedTitle")
 
         let okAction = UIAlertAction(
-            title: "OK",
+            title: NSLocalizedString("close", comment: ""),
             style: .cancel,
             handler: handler
         )

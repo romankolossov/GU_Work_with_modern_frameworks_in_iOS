@@ -23,6 +23,14 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
 
     // MARK: - Private properties
 
+    private(set) var route: GMSPolyline?
+    private(set) var routePath: GMSMutablePath?
+    private var marker: GMSMarker?
+    private var drawingRoutePath: Bool = false
+    private let realmManager = RealmManager.shared
+    private let coordinate = CLLocationCoordinate2D(
+        latitude: 55.753215, longitude: 37.622504) // Moscow, Red square.
+
     private lazy var mapView: GMSMapView = {
         let view = GMSMapView()
         view.delegate = self
@@ -42,13 +50,6 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
         // lm.requestWhenInUseAuthorization()
         return lm
     }()
-    private(set) var route: GMSPolyline?
-    private(set) var routePath: GMSMutablePath?
-    private var marker: GMSMarker?
-    private var drawingRoutePath: Bool = false
-    private let realmManager = RealmManager.shared
-    private let coordinate = CLLocationCoordinate2D(
-        latitude: 55.753215, longitude: 37.622504) // Moscow, Red square.
 
     // MARK: - Lifecycle
 
@@ -87,7 +88,7 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
         // Replace old line by new one.
         route = GMSPolyline()
         route?.strokeWidth = 3
-        route?.strokeColor = .systemGreen
+        route?.strokeColor = .updateLocationStrokeColor
         // Add the new line on the map.
         route?.map = mapView
         // Replace old path by empty (without points yet) new one.
@@ -133,7 +134,7 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
         guard !drawingRoutePath else {
             showAlert(
                 title: "Route path update",
-                message: "Route path is updating. To load saved route, please, finish drawing current route by pressing \"Stop\" button",
+                message: "Route path draw in process. To load saved route, please, finish drawing current route by pressing \"Stop\" button",
                 handler: nil,
                 completion: nil
             )
@@ -153,7 +154,7 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
         route?.map = nil
         route = GMSPolyline()
         route?.strokeWidth = 3
-        route?.strokeColor = .systemPurple
+        route?.strokeColor = .restoreRoutePathStrokeColor
         route?.map = mapView
 
         // Replace old root path by one with loaded from Realm points in it.
@@ -178,30 +179,13 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
     private func configureNavigationVC() {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.largeTitleTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.systemPurple
+            NSAttributedString.Key.foregroundColor: UIColor.navigationBarLargeTitleTextColor
         ]
-        let toggleMarkerItem = UIBarButtonItem(
-            image: UIImage(systemName: "checkmark.seal"),
-            style: .plain,
-            target: self,
-            action: #selector(toggleMarker)
-        )
-        let goToRedSquareItem = UIBarButtonItem(
-            image: UIImage(systemName: "arrow.down.right.and.arrow.up.left"),
-            style: .plain,
-            target: self,
-            action: #selector(goToRedSquare)
-        )
-        navigationItem.rightBarButtonItems = [
-            goToRedSquareItem, toggleMarkerItem
-        ]
+        navigationController?.navigationBar.isTranslucent = true
 
-        let currentLocationItem = UIBarButtonItem(
-            image: UIImage(systemName: "location"),
-            style: .plain,
-            target: self,
-            action: #selector(currentLocation)
-        )
+        navigationController?.navigationBar.tintColor = .navigationBarTintColor
+        navigationController?.navigationBar.backgroundColor = .navigationBarBackgroundColor
+
         let updateLocationItem = UIBarButtonItem(
             image: UIImage(systemName: "point.fill.topleft.down.curvedto.point.fill.bottomright.up"),
             style: .plain,
@@ -221,12 +205,36 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
             action: #selector(restoreRoutePath)
         )
         navigationItem.leftBarButtonItems = [
-            currentLocationItem, updateLocationItem, finisUpdateLocationItem, restoreRoutePathItem
+            updateLocationItem, finisUpdateLocationItem, restoreRoutePathItem
+        ]
+
+        let currentLocationItem = UIBarButtonItem(
+            image: UIImage(systemName: "location"),
+            style: .plain,
+            target: self,
+            action: #selector(currentLocation)
+        )
+        let toggleMarkerItem = UIBarButtonItem(
+            image: UIImage(systemName: "checkmark"),
+            style: .plain,
+            target: self,
+            action: #selector(toggleMarker)
+        )
+        let goToRedSquareItem = UIBarButtonItem(
+            image: UIImage(systemName: "arrow.down.right.and.arrow.up.left"),
+            style: .plain,
+            target: self,
+            action: #selector(goToRedSquare)
+        )
+        navigationItem.rightBarButtonItems = [
+            goToRedSquareItem, toggleMarkerItem, currentLocationItem
         ]
     }
 
     private func configureMapVC() {
         navigationItem.title = NSLocalizedString("routeTracker", comment: "")
+        view.backgroundColor = .rootVCViewBackgroundColor
+        (UIApplication.shared.delegate as? AppDelegate)?.restrictRotation = .portrait
         addSubviews()
         setupConstraints()
     }
@@ -280,7 +288,7 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
         marker?.map = nil
         marker = nil
     }
-    
+
     private func configureMapStyle() {
            let style = "[" +
                "  {" +

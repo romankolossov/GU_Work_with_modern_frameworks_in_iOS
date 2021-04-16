@@ -6,4 +6,67 @@
   
 */
 
+// Map VC
+
 "routeTracker" = "Выбор маршрута";
+
+// User VC
+
+"userVCName" = "Привет";
+"user" = "Пользователь";
+
+"logout" = "Выход";
+
+"logoutSuccess" = "Вы успешно вышли из аккаунта";
+"logoutFailureWithNoLoggedUser" = "Выход не выполнен. Пользователь не производил вход в аккаунт";
+
+// SignUp VC
+
+// state
+"signup" = "Регистрация";
+// action
+"toSignUp" = "Зарегистрироваться";
+
+"signupSuccess" = "Регистрация прошла успешно";
+"signupFailure" = "Не удалось зарегистрироваться. Пожалуйста, проверьте что поля логина и пароля заполнены";
+"signupFailureWithSameLogin" = "Не удалось зарегистрироваться. Введенный логин уже используется. Пожалуйста, переопределите пароль для этого логина";
+
+// SignIn VC
+
+// state
+"signin" = "Вход в аккаунт";
+// action
+"toSignIn" = "Войти";
+
+"signinSuccess" = "Вы успешно вошли в аккаунт";
+
+"signinFailureWithAleadyLoggedUser" = "Неудачная попытка. Вход в аккаунт был выполнен ранее. Пожалуйста, сперва выйдете из аккаунта, затем повторите вход";
+"signinFailureWithEmptyTextFields" = "Войти в аккаунт не удалось. Пожалуйста, проверьте что поля логина и пароля заполнены";
+"signinFailureWithWrongLoginOrPassword" = "Войти в аккаунт не удалось. Введенные логин/пароль неверны";
+
+// Common for SignUp and SignIn VCs
+
+"loginTextFieldPlaceholder" = " Login (unique user name)";
+"passwordTextFieldPlaceholder" = " Пароль";
+
+// Password VC
+
+"passwordRedefining" = "Переопределение пароля";
+"passwordSaving" = "Запись пароля";
+
+"savePassword" = "Записать пароль";
+"passwordSaveFailureWithEmtyTextField" = "Перезапись пароля не выполнена. Пожалуйста, проверьте что поле пароля заполнено";
+"passwordSaveSuccess" = "Пароль был перезаписан";
+
+// Alerts
+
+"close" = "Закрыть";
+"cancel" = "Отменить";
+
+"usersAction" = "Данные пользователей";
+"usersActionMessage" = "Вы хотите удалить всех пользователей из базы данных?";
+"eraseUsers" = "Удалить пользователей";
+
+"changeUserData" = "Изменения данных пользователей";
+"usersDataErased" = "База данных пользователей очищена";
+
