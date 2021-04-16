@@ -8,6 +8,7 @@
 import UIKit
 import GoogleMaps
 import RealmSwift
+import RxSwift
 
 class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable {
 
@@ -16,39 +17,27 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
     public var publicMapView: GMSMapView {
         mapView
     }
-    public var publicLocationManager: CLLocationManager {
-        locationManager
-    }
     var manualMarker: GMSMarker?
 
     // MARK: - Private properties
 
+    private let realmManager = RealmManager.shared
+    private let locationManager = LocationManager.instance
+    private let bag = DisposeBag()
     private(set) var route: GMSPolyline?
     private(set) var routePath: GMSMutablePath?
     private var marker: GMSMarker?
     private var drawingRoutePath: Bool = false
-    private let realmManager = RealmManager.shared
     private let coordinate = CLLocationCoordinate2D(
         latitude: 55.753215, longitude: 37.622504) // Moscow, Red square.
 
     private lazy var mapView: GMSMapView = {
         let view = GMSMapView()
+        // GMSMapViewDelegate method used for manual marker adding and drawing lines between tmem.
         view.delegate = self
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
-    }()
-    private lazy var locationManager: CLLocationManager = {
-        let lm = CLLocationManager()
-        lm.delegate = self
-        lm.allowsBackgroundLocationUpdates = true
-        lm.pausesLocationUpdatesAutomatically = false
-        lm.startMonitoringSignificantLocationChanges()
-        lm.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        lm.showsBackgroundLocationIndicator = true
-        lm.requestAlwaysAuthorization()
-        // lm.requestWhenInUseAuthorization()
-        return lm
     }()
 
     // MARK: - Lifecycle
@@ -60,6 +49,8 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
 
         configureMap()
         configureMapStyle()
+        // RxSwift, use for route path drawing.
+        configureLocationManager()
     }
 
     // MARK: - Actions
@@ -253,6 +244,27 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
             mapView.heightAnchor.constraint(equalTo: safeArea.heightAnchor)
         ]
         NSLayoutConstraint.activate(mapViewConstraints)
+    }
+
+    // RxSwift, configure location manager.
+
+    private func configureLocationManager() {
+        locationManager
+            .location
+            .subscribe(onNext: { [weak self] location in
+                // Add a point when location changed and move the center of map to it drawing lines in between.
+                guard let location = location else {
+                    return
+                }
+                let position = location.coordinate
+                // Add a point to the route path and update the path of the route line.
+                self?.routePath?.add(location.coordinate)
+                self?.route?.path = self?.routePath
+                // Set the camera to the point added to observe the movement.
+                let camersPosition = GMSCameraPosition.camera(withTarget: position, zoom: 17)
+                self?.mapView.animate(to: camersPosition)
+            })
+            .disposed(by: bag)
     }
 
     private func configureMap() {

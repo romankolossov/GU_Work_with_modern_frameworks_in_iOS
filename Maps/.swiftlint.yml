@@ -58,7 +58,7 @@ function_body_length:
   error: 210
 
 file_length:
-  warning: 500
+  warning: 510 # initially was set to 500
   error: 1200
 
 type_name:

@@ -15,6 +15,7 @@ class SignInViewController: UIViewController, AlertShowable {
     // MARK: - Private properties
 
     private let realmManager = RealmManager.shared
+    private let bag = DisposeBag()
     private var loggedUserData: LoggedUserData?
     private var textFieldsIsFilledIn: Bool = false
 
@@ -137,8 +138,8 @@ class SignInViewController: UIViewController, AlertShowable {
             )
             return
         }
+        // Check that login and password text fields are not empty in a regular way (without RxSwift).
 /*
-        // Check that login and password text fields are not empty in a regular way.
         guard let login = signInView.userNameTextField.text,
               let password = signInView.passwordTextField.text,
               !login.isEmpty, !password.isEmpty else {
@@ -252,7 +253,7 @@ class SignInViewController: UIViewController, AlertShowable {
                 // If event is successfull mark a flag else dismiss it.
                 self?.textFieldsIsFilledIn = inputField
             }
-            .disposed(by: .init())
+            .disposed(by: bag)
     }
 
     private func configureSignInVC() {

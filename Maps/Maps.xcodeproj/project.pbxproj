@@ -153,12 +153,12 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		C85CE04B261B79720099AB60 /* Realm */ = {
+		C85CE04B261B79720099AB60 /* RealmManager */ = {
 			isa = PBXGroup;
 			children = (
 				C85CE04C261B79B90099AB60 /* RealmManager.swift */,
 			);
-			path = Realm;
+			path = RealmManager;
 			sourceTree = "<group>";
 		};
 		C85CE04F261B7B0A0099AB60 /* Models */ = {
@@ -243,8 +243,8 @@
 		C85E73632614987600D4ABDC /* BusinessLogic */ = {
 			isa = PBXGroup;
 			children = (
-				C85CE04B261B79720099AB60 /* Realm */,
-				C8EC5901262832BD004CCCC9 /* LocationManager.swift */,
+				C8C9B1B32628B9D400E3A63F /* LocationManager */,
+				C85CE04B261B79720099AB60 /* RealmManager */,
 			);
 			path = BusinessLogic;
 			sourceTree = "<group>";
@@ -321,6 +321,14 @@
 				C85E73602614975300D4ABDC /* Enviroments */,
 			);
 			path = Maps;
+			sourceTree = "<group>";
+		};
+		C8C9B1B32628B9D400E3A63F /* LocationManager */ = {
+			isa = PBXGroup;
+			children = (
+				C8EC5901262832BD004CCCC9 /* LocationManager.swift */,
+			);
+			path = LocationManager;
 			sourceTree = "<group>";
 		};
 		C8F217D0261F21D800457B1F /* Common */ = {
