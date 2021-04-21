@@ -46,6 +46,9 @@
 		C8EC58EE2624AFEA004CCCC9 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EC58ED2624AFEA004CCCC9 /* AppRouter.swift */; };
 		C8EC58F12624B079004CCCC9 /* AppRouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EC58F02624B079004CCCC9 /* AppRouterProtocol.swift */; };
 		C8EC58F42624C272004CCCC9 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EC58F32624C272004CCCC9 /* UIViewController+Extension.swift */; };
+		C8EC58FC2626BA01004CCCC9 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = C8EC58FB2626BA01004CCCC9 /* RxCocoa */; };
+		C8EC58FE2626BA01004CCCC9 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C8EC58FD2626BA01004CCCC9 /* RxSwift */; };
+		C8EC5902262832BD004CCCC9 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EC5901262832BD004CCCC9 /* LocationManager.swift */; };
 		C8F217D2261F267900457B1F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F217D1261F267900457B1F /* TabBarController.swift */; };
 		C8F217D9261F2BCC00457B1F /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F217D8261F2BCC00457B1F /* UIColor+Extension.swift */; };
 		C8F217DC261F2E9400457B1F /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8F217DB261F2E9400457B1F /* UserViewController.swift */; };
@@ -90,6 +93,7 @@
 		C8EC58ED2624AFEA004CCCC9 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		C8EC58F02624B079004CCCC9 /* AppRouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouterProtocol.swift; sourceTree = "<group>"; };
 		C8EC58F32624C272004CCCC9 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		C8EC5901262832BD004CCCC9 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		C8F217D1261F267900457B1F /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		C8F217D8261F2BCC00457B1F /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		C8F217DB261F2E9400457B1F /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
@@ -100,12 +104,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8EC58FE2626BA01004CCCC9 /* RxSwift in Frameworks */,
 				C85CE047261B5BA30099AB60 /* Realm in Frameworks */,
 				C866D9FA2614B1B30028BAE1 /* GoogleMapsM4B in Frameworks */,
 				C85CE049261B5BA30099AB60 /* RealmSwift in Frameworks */,
 				C866D9FC2614B1B30028BAE1 /* GoogleMapsCore in Frameworks */,
 				C866D9FE2614B1B30028BAE1 /* GoogleMaps in Frameworks */,
 				C866D9F62614B1B30028BAE1 /* GoogleMapsBase in Frameworks */,
+				C8EC58FC2626BA01004CCCC9 /* RxCocoa in Frameworks */,
 				C866D9F82614B1B30028BAE1 /* GooglePlaces in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,12 +153,12 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		C85CE04B261B79720099AB60 /* Realm */ = {
+		C85CE04B261B79720099AB60 /* RealmManager */ = {
 			isa = PBXGroup;
 			children = (
 				C85CE04C261B79B90099AB60 /* RealmManager.swift */,
 			);
-			path = Realm;
+			path = RealmManager;
 			sourceTree = "<group>";
 		};
 		C85CE04F261B7B0A0099AB60 /* Models */ = {
@@ -237,7 +243,8 @@
 		C85E73632614987600D4ABDC /* BusinessLogic */ = {
 			isa = PBXGroup;
 			children = (
-				C85CE04B261B79720099AB60 /* Realm */,
+				C8C9B1B32628B9D400E3A63F /* LocationManager */,
+				C85CE04B261B79720099AB60 /* RealmManager */,
 			);
 			path = BusinessLogic;
 			sourceTree = "<group>";
@@ -316,6 +323,14 @@
 			path = Maps;
 			sourceTree = "<group>";
 		};
+		C8C9B1B32628B9D400E3A63F /* LocationManager */ = {
+			isa = PBXGroup;
+			children = (
+				C8EC5901262832BD004CCCC9 /* LocationManager.swift */,
+			);
+			path = LocationManager;
+			sourceTree = "<group>";
+		};
 		C8F217D0261F21D800457B1F /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -349,6 +364,8 @@
 				C866D9FD2614B1B30028BAE1 /* GoogleMaps */,
 				C85CE046261B5BA30099AB60 /* Realm */,
 				C85CE048261B5BA30099AB60 /* RealmSwift */,
+				C8EC58FB2626BA01004CCCC9 /* RxCocoa */,
+				C8EC58FD2626BA01004CCCC9 /* RxSwift */,
 			);
 			productName = Maps;
 			productReference = C8A789C0261478E7002C24B4 /* Maps.app */;
@@ -381,6 +398,7 @@
 			packageReferences = (
 				C866D9F42614B1B30028BAE1 /* XCRemoteSwiftPackageReference "GoogleMaps-SP" */,
 				C85CE045261B5BA30099AB60 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
+				C8EC58FA2626BA01004CCCC9 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = C8A789C1261478E7002C24B4 /* Products */;
 			projectDirPath = "";
@@ -439,6 +457,7 @@
 				C85CE051261B7BD20099AB60 /* RoutePathRealm.swift in Sources */,
 				C8EC58EE2624AFEA004CCCC9 /* AppRouter.swift in Sources */,
 				C8A789C8261478E7002C24B4 /* MapViewController.swift in Sources */,
+				C8EC5902262832BD004CCCC9 /* LocationManager.swift in Sources */,
 				C88C5AC826206243007ECAB7 /* Shakable+Extension.swift in Sources */,
 				C8F217DC261F2E9400457B1F /* UserViewController.swift in Sources */,
 				C88C5ACB262063A0007ECAB7 /* CGFloat+Extension.swift in Sources */,
@@ -695,6 +714,14 @@
 				minimumVersion = 4.2.0;
 			};
 		};
+		C8EC58FA2626BA01004CCCC9 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -732,6 +759,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C866D9F42614B1B30028BAE1 /* XCRemoteSwiftPackageReference "GoogleMaps-SP" */;
 			productName = GoogleMaps;
+		};
+		C8EC58FB2626BA01004CCCC9 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C8EC58FA2626BA01004CCCC9 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		C8EC58FD2626BA01004CCCC9 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C8EC58FA2626BA01004CCCC9 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

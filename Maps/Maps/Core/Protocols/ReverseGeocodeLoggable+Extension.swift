@@ -9,7 +9,7 @@ import UIKit
 import GoogleMaps
 import OSLog
 
-protocol ReverseGeocodeLoggable where Self: UIViewController { }
+protocol ReverseGeocodeLoggable where Self: NSObject { }
 
 extension ReverseGeocodeLoggable {
     // Log the place of the location.

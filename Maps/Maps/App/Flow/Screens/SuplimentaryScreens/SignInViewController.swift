@@ -7,13 +7,17 @@
 
 import UIKit
 import RealmSwift
+import RxSwift
+import RxCocoa
 
 class SignInViewController: UIViewController, AlertShowable {
 
     // MARK: - Private properties
 
     private let realmManager = RealmManager.shared
+    private let bag = DisposeBag()
     private var loggedUserData: LoggedUserData?
+    private var textFieldsIsFilledIn: Bool = false
 
     private lazy var signInView: SignInView = {
         let view = SignInView()
@@ -62,6 +66,9 @@ class SignInViewController: UIViewController, AlertShowable {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSignInVC()
+
+        // For RxSwith use to check that login and password text fields are not empty.
+        configureLoginBindings()
 
         // MARK: Targets
 
@@ -131,11 +138,24 @@ class SignInViewController: UIViewController, AlertShowable {
             )
             return
         }
-
-        // Check that text fields are not empty.
+        // Check that login and password text fields are not empty in a regular way (without RxSwift).
+/*
         guard let login = signInView.userNameTextField.text,
               let password = signInView.passwordTextField.text,
               !login.isEmpty, !password.isEmpty else {
+            showAlert(
+                title: NSLocalizedString("signin", comment: ""),
+                message: NSLocalizedString("signinFailureWithEmptyTextFields", comment: ""),
+                handler: nil,
+                completion: nil
+            )
+            return
+        }
+*/
+        // Check that login and password text fields are not empty by using RxSwift.
+        guard let login = signInView.userNameTextField.text,
+              let password = signInView.passwordTextField.text,
+              textFieldsIsFilledIn else {
             showAlert(
                 title: NSLocalizedString("signin", comment: ""),
                 message: NSLocalizedString("signinFailureWithEmptyTextFields", comment: ""),
@@ -212,6 +232,29 @@ class SignInViewController: UIViewController, AlertShowable {
     // MARK: - Private methods
 
     // MARK: Configure
+
+    // RxSwift, configure login and password bindings.
+
+    private func configureLoginBindings() {
+        Observable
+            // Combine two oservers in one.
+            .combineLatest(
+            // Text field change observers.
+            signInView.userNameTextField.rx.text,
+            signInView.passwordTextField.rx.text
+            )
+            // Modify values from two observers in one.
+            .map { login, password in
+                // If login and password fields are not empty return true.
+                !(login ?? "").isEmpty && !(password ?? "").isEmpty
+            }
+            // Subscribe for recieving events.
+            .bind { [weak self] (inputField) in
+                // If event is successfull mark a flag else dismiss it.
+                self?.textFieldsIsFilledIn = inputField
+            }
+            .disposed(by: bag)
+    }
 
     private func configureSignInVC() {
         addSubviews()

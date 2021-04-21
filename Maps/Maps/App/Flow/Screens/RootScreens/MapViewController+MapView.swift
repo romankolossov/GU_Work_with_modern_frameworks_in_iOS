@@ -43,33 +43,3 @@ extension MapViewController: GMSMapViewDelegate {
         reverseGeocodeLog(location: location)
     }
 }
-
-extension MapViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        // Take and log the first point from the locations array recieved.
-        guard let location = locations.first else { return }
-        Logger.viewCycle.debug("\(location)")
-
-        // Log the address of place of the location.
-        reverseGeocodeLog(location: location)
-
-        // Track the movement in foreground and background app states
-        // at walk or ride in the Apple campus when update location pressed.
-/*
-        // Take the last point from the locations array recieved.
-        guard let lastLocation = locations.last else { return }
-        // Add it to the route path.
-        routePath?.add(lastLocation.coordinate)
-        // Update the path of the route line.
-        route?.path = routePath
-        // Set the camera to the point added to observe the movement.
-        let position = GMSCameraPosition(target: lastLocation.coordinate, zoom: 17)
-        publicMapView.animate(to: position)
-*/
-    }
-
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        Logger.viewCycle.debug("\(error.localizedDescription)")
-    }
-
-}
