@@ -6,11 +6,14 @@
 //
 
 import UIKit
+import NotificationCenter
+import OSLog
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     let visualEffectView = UIVisualEffectView(effect: nil)
+    let notificationCenter = UNUserNotificationCenter.current()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -32,6 +35,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // MARK: Set dark InterfaceStyle
 
         self.window?.overrideUserInterfaceStyle = .dark
+
+        // MARK: Notifications request autorization
+
+        notificationCenter.getNotificationSettings { [self] (settings) in
+            switch settings.authorizationStatus {
+            case .denied:
+                Logger.viewCycle.debug("Access not allowed")
+            case .authorized:
+                Logger.viewCycle.debug("Access allowed")
+            default:
+                notificationCenter.requestAuthorization(
+                    options: [.badge, .alert, .sound]) { state, error in
+                    guard error == nil else {
+                        guard let error = error else { return }
+                        Logger.viewCycle.debug("\(error.localizedDescription)")
+                        return
+                    }
+                    guard state else {
+                        Logger.viewCycle.debug("No permission granted")
+                        return
+                    }
+                    Logger.viewCycle.debug("Permission granted")
+                }
+            }
+        }
 
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -111,6 +139,34 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         UIView.animate(withDuration: 0.8) { [weak self] in
             self?.visualEffectView.effect = UIBlurEffect(style: .regular)
+        }
+
+        sendNotificationRequest(
+            content: makeNotificationContent(),
+            trigger: makeNotificationTrigger()
+        )
+    }
+
+    func makeNotificationContent() -> UNNotificationContent {
+        let content = UNMutableNotificationContent()
+
+        content.badge = 3
+        content.title = "Hello!"
+        content.subtitle = "Its time to wake up"
+        content.body = "Here is the main notification body text"
+        return content
+    }
+
+    func makeNotificationTrigger() -> UNNotificationTrigger {
+        UNTimeIntervalNotificationTrigger(timeInterval: 8, repeats: false)
+    }
+
+    func sendNotificationRequest(content: UNNotificationContent, trigger: UNNotificationTrigger) {
+        let request = UNNotificationRequest(identifier: "alarm", content: content, trigger: trigger)
+
+        notificationCenter.add(request) { error in
+            guard let error = error else { return }
+            Logger.viewCycle.debug("\(error.localizedDescription)")
         }
     }
 
