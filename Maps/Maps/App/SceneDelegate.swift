@@ -38,28 +38,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // MARK: Notifications request autorization
 
-        notificationCenter.getNotificationSettings { [self] (settings) in
-            switch settings.authorizationStatus {
-            case .denied:
-                Logger.viewCycle.debug("Access not allowed")
-            case .authorized:
-                Logger.viewCycle.debug("Access allowed")
-            default:
-                notificationCenter.requestAuthorization(
-                    options: [.badge, .alert, .sound]) { state, error in
-                    guard error == nil else {
-                        guard let error = error else { return }
-                        Logger.viewCycle.debug("\(error.localizedDescription)")
-                        return
-                    }
-                    guard state else {
-                        Logger.viewCycle.debug("No permission granted")
-                        return
-                    }
-                    Logger.viewCycle.debug("Permission granted")
-                }
-            }
-        }
+        registerForNotifications()
 
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -141,33 +120,74 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self?.visualEffectView.effect = UIBlurEffect(style: .regular)
         }
 
-        sendNotificationRequest(
-            content: makeNotificationContent(),
-            trigger: makeNotificationTrigger()
+        createNotificationRequest(
+            with: "Alarm",
+            content: createNotificationContent(),
+            trigger: createNotificationTrigger()
         )
     }
 
-    func makeNotificationContent() -> UNNotificationContent {
+    func registerForNotifications() {
+        notificationCenter.getNotificationSettings { [weak self] notificationSettings in
+            switch notificationSettings.authorizationStatus {
+            case .notDetermined:
+                self?.requestAutorisation()
+            case .denied:
+                Logger.viewCycle.debug("Application not allowed to show notifications")
+            default:
+                break
+            }
+        }
+    }
+
+    func requestAutorisation() {
+        let options: UNAuthorizationOptions = [.alert, .sound, .badge]
+
+        notificationCenter.requestAuthorization(
+            options: options) { success, error in
+            guard error == nil else {
+                guard let error = error else { return }
+                Logger.viewCycle.debug("\(error.localizedDescription)")
+                return
+            }
+            guard success else {
+                Logger.viewCycle.debug("No permission to show notifications granted")
+                return
+            }
+            Logger.viewCycle.debug("Permission to show notifications granted")
+        }
+    }
+
+    func createNotificationRequest(
+        with identifier: String,
+        content: UNNotificationContent,
+        trigger: UNNotificationTrigger
+    ) {
+        let request = UNNotificationRequest(
+            identifier: identifier,
+            content: content,
+            trigger: trigger
+        )
+        notificationCenter.add(request) { error in
+            guard let error = error else { return }
+            Logger.viewCycle.debug("\(error.localizedDescription)")
+        }
+    }
+
+    func createNotificationContent() -> UNMutableNotificationContent {
         let content = UNMutableNotificationContent()
 
         content.badge = 3
         content.title = "Hello!"
         content.subtitle = "Its time to wake up"
         content.body = "Here is the main notification body text"
+        content.sound = .default
+        content.userInfo = ["identifierUserInfo": "Test user info"]
         return content
     }
 
-    func makeNotificationTrigger() -> UNNotificationTrigger {
+    func createNotificationTrigger() -> UNNotificationTrigger {
         UNTimeIntervalNotificationTrigger(timeInterval: 8, repeats: false)
-    }
-
-    func sendNotificationRequest(content: UNNotificationContent, trigger: UNNotificationTrigger) {
-        let request = UNNotificationRequest(identifier: "alarm", content: content, trigger: trigger)
-
-        notificationCenter.add(request) { error in
-            guard let error = error else { return }
-            Logger.viewCycle.debug("\(error.localizedDescription)")
-        }
     }
 
 }
