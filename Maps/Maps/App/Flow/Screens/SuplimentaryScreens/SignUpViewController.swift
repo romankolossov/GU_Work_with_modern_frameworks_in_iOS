@@ -19,6 +19,7 @@ class SignUpViewController: UIViewController, AlertShowable {
     weak var delegate: SignUpViewControllerDelegate?
 
     // MARK: - Private properties
+
     private let realmManager = RealmManager.shared
 
     private lazy var signUpView: SignUpView = {

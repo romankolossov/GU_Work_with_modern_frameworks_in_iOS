@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		C84480F626219A00007DEAC8 /* UsersInRealmErasable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84480F526219A00007DEAC8 /* UsersInRealmErasable.swift */; };
 		C84B8BFF261CA24C0027AD17 /* AlertShowable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84B8BFE261CA24C0027AD17 /* AlertShowable+Extension.swift */; };
+		C8557E2A2634BC660099FF7C /* AvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8557E292634BC660099FF7C /* AvatarViewController.swift */; };
+		C8557E2D2634BCB50099FF7C /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8557E2C2634BCB50099FF7C /* AvatarView.swift */; };
 		C85A72142616420C00A42DA6 /* Logger+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85A72132616420C00A42DA6 /* Logger+Extension.swift */; };
 		C85A72182616433500A42DA6 /* CLLocationCoordinate2D+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85A72172616433500A42DA6 /* CLLocationCoordinate2D+Extension.swift */; };
 		C85CE025261AA76F0099AB60 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C85CE023261AA76F0099AB60 /* InfoPlist.strings */; };
@@ -58,6 +60,8 @@
 /* Begin PBXFileReference section */
 		C84480F526219A00007DEAC8 /* UsersInRealmErasable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersInRealmErasable.swift; sourceTree = "<group>"; };
 		C84B8BFE261CA24C0027AD17 /* AlertShowable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlertShowable+Extension.swift"; sourceTree = "<group>"; };
+		C8557E292634BC660099FF7C /* AvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarViewController.swift; sourceTree = "<group>"; };
+		C8557E2C2634BCB50099FF7C /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		C85A72132616420C00A42DA6 /* Logger+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extension.swift"; sourceTree = "<group>"; };
 		C85A72172616433500A42DA6 /* CLLocationCoordinate2D+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Extension.swift"; sourceTree = "<group>"; };
 		C85CE024261AA76F0099AB60 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -274,6 +278,7 @@
 				C88C5ABE26206091007ECAB7 /* SignInView.swift */,
 				C88C5AC1262060EC007ECAB7 /* SignUpView.swift */,
 				C88C5AC4262061DE007ECAB7 /* ShakableViews.swift */,
+				C8557E2C2634BCB50099FF7C /* AvatarView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -284,6 +289,7 @@
 				C88C5ACE262064FA007ECAB7 /* SignInViewController.swift */,
 				C88C5AD126206511007ECAB7 /* SignUpViewController.swift */,
 				C8B572FF2621D0E0001616DE /* PasswordViewController.swift */,
+				C8557E292634BC660099FF7C /* AvatarViewController.swift */,
 			);
 			path = SuplimentaryScreens;
 			sourceTree = "<group>";
@@ -476,6 +482,7 @@
 				C88C5AB7261F8232007ECAB7 /* UserRealm.swift in Sources */,
 				C84480F626219A00007DEAC8 /* UsersInRealmErasable.swift in Sources */,
 				C88C5AC5262061DE007ECAB7 /* ShakableViews.swift in Sources */,
+				C8557E2D2634BCB50099FF7C /* AvatarView.swift in Sources */,
 				C8F217D2261F267900457B1F /* TabBarController.swift in Sources */,
 				C8F217D9261F2BCC00457B1F /* UIColor+Extension.swift in Sources */,
 				C85CE04D261B79B90099AB60 /* RealmManager.swift in Sources */,
@@ -484,6 +491,7 @@
 				C8A789C4261478E7002C24B4 /* AppDelegate.swift in Sources */,
 				C8B573002621D0E0001616DE /* PasswordViewController.swift in Sources */,
 				C8CB74E5261F736A00827779 /* NibNameLoadable+Extension.swift in Sources */,
+				C8557E2A2634BC660099FF7C /* AvatarViewController.swift in Sources */,
 				C85A72182616433500A42DA6 /* CLLocationCoordinate2D+Extension.swift in Sources */,
 				C85CE03C261B1EB10099AB60 /* ReverseGeocodeLoggable+Extension.swift in Sources */,
 				C88C5AD226206511007ECAB7 /* SignUpViewController.swift in Sources */,
