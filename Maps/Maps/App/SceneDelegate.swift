@@ -11,6 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     let visualEffectView = UIVisualEffectView(effect: nil)
+    let notificationCenter = UNUserNotificationCenter.current()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -29,7 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // AppRouter.create(self, controller: tabBarController)
 
-        // MARK: Set dark InterfaceStyle
+        // MARK: Set dark InterfaceStyle.
 
         self.window?.overrideUserInterfaceStyle = .dark
 
@@ -43,6 +44,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This occurs shortly after the scene enters the background, or when its session is discarded.
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
         // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
+
+        // Send notification.
+
+        NotificationManager.shared.sendNotification()
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
@@ -112,6 +117,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         UIView.animate(withDuration: 0.8) { [weak self] in
             self?.visualEffectView.effect = UIBlurEffect(style: .regular)
         }
+
+        // Send notification.
+
+        NotificationManager.shared.sendNotification()
+
     }
 
 }
