@@ -7,7 +7,7 @@
 
 import UIKit
 
-class UserViewController: UIViewController, AlertShowable, UsersInRealmErasable {
+class UserViewController: UIViewController, UsersInRealmErasable {
 
     // MARK: - Private properties
 
@@ -86,7 +86,7 @@ class UserViewController: UIViewController, AlertShowable, UsersInRealmErasable 
         // Erase realm users database.
         eraseUsersInRealm()
     }
-    
+
     @objc private func createAvatar() {
         let avatarViewController = AvatarViewController()
         avatarViewController.modalPresentationStyle = .formSheet

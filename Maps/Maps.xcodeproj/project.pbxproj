@@ -11,6 +11,7 @@
 		C84B8BFF261CA24C0027AD17 /* AlertShowable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84B8BFE261CA24C0027AD17 /* AlertShowable+Extension.swift */; };
 		C8557E2A2634BC660099FF7C /* AvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8557E292634BC660099FF7C /* AvatarViewController.swift */; };
 		C8557E2D2634BCB50099FF7C /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8557E2C2634BCB50099FF7C /* AvatarView.swift */; };
+		C8557E33263582670099FF7C /* AvatarViewController+PickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8557E32263582670099FF7C /* AvatarViewController+PickerController.swift */; };
 		C85A72142616420C00A42DA6 /* Logger+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85A72132616420C00A42DA6 /* Logger+Extension.swift */; };
 		C85A72182616433500A42DA6 /* CLLocationCoordinate2D+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85A72172616433500A42DA6 /* CLLocationCoordinate2D+Extension.swift */; };
 		C85CE025261AA76F0099AB60 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C85CE023261AA76F0099AB60 /* InfoPlist.strings */; };
@@ -28,6 +29,7 @@
 		C866D9FE2614B1B30028BAE1 /* GoogleMaps in Frameworks */ = {isa = PBXBuildFile; productRef = C866D9FD2614B1B30028BAE1 /* GoogleMaps */; };
 		C866DA0726163E200028BAE1 /* MapViewController+MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C866DA0626163E200028BAE1 /* MapViewController+MapView.swift */; };
 		C86774C5261F4CDD00EE93DE /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86774C4261F4CDD00EE93DE /* UIFont+Extension.swift */; };
+		C88A2ECE2635CB39008A2FAC /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88A2ECD2635CB39008A2FAC /* UIImage+Extension.swift */; };
 		C88C5AB7261F8232007ECAB7 /* UserRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C5AB6261F8232007ECAB7 /* UserRealm.swift */; };
 		C88C5ABB26203F25007ECAB7 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C5ABA26203F25007ECAB7 /* UserView.swift */; };
 		C88C5ABF26206091007ECAB7 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88C5ABE26206091007ECAB7 /* SignInView.swift */; };
@@ -62,6 +64,7 @@
 		C84B8BFE261CA24C0027AD17 /* AlertShowable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlertShowable+Extension.swift"; sourceTree = "<group>"; };
 		C8557E292634BC660099FF7C /* AvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarViewController.swift; sourceTree = "<group>"; };
 		C8557E2C2634BCB50099FF7C /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
+		C8557E32263582670099FF7C /* AvatarViewController+PickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AvatarViewController+PickerController.swift"; sourceTree = "<group>"; };
 		C85A72132616420C00A42DA6 /* Logger+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extension.swift"; sourceTree = "<group>"; };
 		C85A72172616433500A42DA6 /* CLLocationCoordinate2D+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Extension.swift"; sourceTree = "<group>"; };
 		C85CE024261AA76F0099AB60 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -76,6 +79,7 @@
 		C85E7357261493E000D4ABDC /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		C866DA0626163E200028BAE1 /* MapViewController+MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MapViewController+MapView.swift"; sourceTree = "<group>"; };
 		C86774C4261F4CDD00EE93DE /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
+		C88A2ECD2635CB39008A2FAC /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		C88C5AB6261F8232007ECAB7 /* UserRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRealm.swift; sourceTree = "<group>"; };
 		C88C5ABA26203F25007ECAB7 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		C88C5ABE26206091007ECAB7 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
@@ -134,6 +138,7 @@
 				C86774C4261F4CDD00EE93DE /* UIFont+Extension.swift */,
 				C88C5ACA262063A0007ECAB7 /* CGFloat+Extension.swift */,
 				C8EC58F32624C272004CCCC9 /* UIViewController+Extension.swift */,
+				C88A2ECD2635CB39008A2FAC /* UIImage+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -290,6 +295,7 @@
 				C88C5AD126206511007ECAB7 /* SignUpViewController.swift */,
 				C8B572FF2621D0E0001616DE /* PasswordViewController.swift */,
 				C8557E292634BC660099FF7C /* AvatarViewController.swift */,
+				C8557E32263582670099FF7C /* AvatarViewController+PickerController.swift */,
 			);
 			path = SuplimentaryScreens;
 			sourceTree = "<group>";
@@ -469,6 +475,8 @@
 			files = (
 				C88C5AD72620BBCE007ECAB7 /* AppCoordinator.swift in Sources */,
 				C88C5ABF26206091007ECAB7 /* SignInView.swift in Sources */,
+				C8557E33263582670099FF7C /* AvatarViewController+PickerController.swift in Sources */,
+				C88A2ECE2635CB39008A2FAC /* UIImage+Extension.swift in Sources */,
 				C8EC58F12624B079004CCCC9 /* AppRouterProtocol.swift in Sources */,
 				C86774C5261F4CDD00EE93DE /* UIFont+Extension.swift in Sources */,
 				C85CE051261B7BD20099AB60 /* RoutePathRealm.swift in Sources */,

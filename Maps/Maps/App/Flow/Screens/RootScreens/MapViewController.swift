@@ -257,7 +257,22 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
                     return
                 }
                 let position = location.coordinate
+                // Add a marker on the map removing the previous one to make the marker move.
+                // Marker is moving with user avatar in it.
+                let image = UIImage(named: "FerrariTestPicture")
+                self?.removeMarker()
+                self?.addMarker(with: image, position: position)
+                /*
+                 // Case of adding an icon to marker as resized image.
+                 self?.marker = GMSMarker(position: position)
+                 let image = UIImage(named: "FerrariTestPicture")
+                 let size = CGSize(width: 60.0, height: 60.0)
+                 let resizedImage = image?.resized(to: size)
+                 self?.marker?.icon = resizedImage
+                 self?.marker?.map = self?.mapView
+                 */
                 // Add a point to the route path and update the path of the route line.
+                // To make a line trail after moving marker.
                 self?.routePath?.add(location.coordinate)
                 self?.route?.path = self?.routePath
                 // Set the camera to the point added to observe the movement.
@@ -274,15 +289,17 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
         mapView.camera = camera
     }
 
+    // To show ways of customizing a marker.
+
     private func addMarker() {
-        // Make a custom shape of the marker, for example as a red rectangle.
-/*
-        let rect = CGRect(x: 0, y: 0, width: 20, height: 20)
-        let view = UIView(frame: rect)
-        view.backgroundColor = .red
-*/
+        /*
+         // Make a custom shape of the marker, for example as a red rectangle.
+         let rect = CGRect(x: 0, y: 0, width: 60, height: 60)
+         let view = UIView(frame: rect)
+         view.backgroundColor = .red
+         */
         let marker = GMSMarker(position: coordinate)
-        marker.icon = GMSMarker.markerImage(with: .green)
+        // marker.icon = GMSMarker.markerImage(with: .green)
         // marker.icon = UIImage(systemName: "figure.walk") // Marker as an image.
         // marker.iconView = view // Marker as a red rect.
 
@@ -291,6 +308,38 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
 
         // Set where the marked coordinate relatively to the marker is, for example in the middle of the marker.
         marker.groundAnchor = CGPoint(x: 0.5, y: 0.5)
+
+        // Set the map on the marker but not vise versa because in the case of many markers
+        // and setting them on the map the collection of markers needs to be defined.
+        marker.map = mapView
+        self.marker = marker
+    }
+
+    // Add a marker on the map with round image view in it to show user avatar in the view.
+
+    private func addMarker(with image: UIImage?, position: CLLocationCoordinate2D) {
+        let rect = CGRect(x: 0.0, y: 0.0, width: 60.0, height: 60.0)
+        let avatarView = UIView(frame: rect)
+        let userImageView = UIImageView()
+
+        userImageView.clipsToBounds = true
+        userImageView.translatesAutoresizingMaskIntoConstraints = false
+        userImageView.contentMode = .scaleAspectFill
+        userImageView.image = image
+
+        avatarView.addSubview(userImageView)
+        NSLayoutConstraint.activate([
+            userImageView.centerXAnchor.constraint(equalTo: avatarView.centerXAnchor),
+            userImageView.centerYAnchor.constraint(equalTo: avatarView.centerYAnchor),
+            userImageView.widthAnchor.constraint(equalTo: avatarView.widthAnchor),
+            userImageView.heightAnchor.constraint(equalTo: avatarView.heightAnchor)
+        ])
+        // Make rounded corners of the user image view.
+        userImageView.layer.cornerRadius = 30.0
+
+        // Create a marker and set its icon view to avatar view with user image view in it.
+        let marker = GMSMarker(position: position)
+        marker.iconView = avatarView
 
         marker.map = mapView
         self.marker = marker

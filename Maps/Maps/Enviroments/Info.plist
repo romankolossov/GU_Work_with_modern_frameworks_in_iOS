@@ -2,10 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allow &quot;Route tracker&quot; to access photo library for avatar creating </string>
+	<key>NSCameraUsageDescription</key>
+	<string>Allow &quot;Route tracker&quot; to access camera for avatar creating </string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Allow &quot;Route tracker&quot; to access your location when you are using the app and in background?</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Allow &quot;Route tracker&quot; to access your location when you are using the app?</string>
 	<key>CFBundleDisplayName</key>
 	<string></string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -22,10 +30,6 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Allow "Maps" to access your location when you are using the app and in background?</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Allow "Maps" to access your location when you are using the app?</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

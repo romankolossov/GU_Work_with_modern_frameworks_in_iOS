@@ -9,6 +9,12 @@ import UIKit
 
 class AvatarViewController: UIViewController, AlertShowable {
 
+    // MARK: - Public properties
+
+    public lazy var publicAvatarView: AvatarView = {
+        avatarView
+    }()
+
     // MARK: - Private properties
 
     private lazy var avatarView: AvatarView = {
@@ -17,6 +23,7 @@ class AvatarViewController: UIViewController, AlertShowable {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+
     private lazy var selfieButton: ShakableButton = {
         let button = ShakableButton()
         button.setTitle(NSLocalizedString("makeSelfie", comment: ""), for: .normal)
@@ -70,20 +77,62 @@ class AvatarViewController: UIViewController, AlertShowable {
         // Animation when the signUpButton is tapped.
         selfieButton.shake()
 
-        // After alert Close pressed, dismiss Avatar VC screen to move to User VC screen
-        let handler: ((UIAlertAction) -> Void)? = { [weak self] _ in
-            self?.dismiss(animated: true, completion: nil)
-        }
-
-        showAlert(
-            title: NSLocalizedString("avatar", comment: ""),
-            message: NSLocalizedString("makeAvatarSuccess", comment: ""),
-            handler: handler,
-            completion: nil
+        let alertController = UIAlertController(
+            title: NSLocalizedString("avatarAction", comment: ""),
+            message: NSLocalizedString("avatarActionMessage ", comment: "Choose action to create avatat"),
+            preferredStyle: .actionSheet
         )
+        let photoAction = UIAlertAction(
+            title: NSLocalizedString("choosePhoto", comment: "Choose a photo from the gallery"),
+            style: .default) { [weak self] _ in
+            self?.createAndShowPickerController(with: .photoLibrary)
+        }
+        let selfieAction = UIAlertAction(
+            title: NSLocalizedString("makeSelfie", comment: "Make selfie"),
+            style: .default) { [weak self] _ in
+            self?.createAndShowPickerController(with: .camera)
+        }
+        let cancelAction = UIAlertAction(
+            title: NSLocalizedString("cancel", comment: ""),
+            style: .cancel,
+            handler: nil
+        )
+        alertController.addAction(photoAction)
+        alertController.addAction(selfieAction)
+        alertController.addAction(cancelAction)
+
+        present(alertController, animated: true, completion: nil)
+
+        // After alert Close pressed, dismiss Avatar VC screen to move to User VC screen
+//        let handler: ((UIAlertAction) -> Void)? = { [weak self] _ in
+//            self?.dismiss(animated: true, completion: nil)
+//        }
+//
+//        showAlert(
+//            title: NSLocalizedString("avatar", comment: ""),
+//            message: NSLocalizedString("makeAvatarSuccess", comment: ""),
+//            handler: handler,
+//            completion: nil
+//        )
+
     }
 
     // MARK: - Private methods
+
+    // MARK: Create picker controller
+
+    private func createAndShowPickerController(with type: UIImagePickerController.SourceType) {
+        guard UIImagePickerController.isSourceTypeAvailable(type) else {
+            return
+        }
+        let imagePicker = UIImagePickerController()
+
+        imagePicker.sourceType = type
+        imagePicker.allowsEditing = true
+        imagePicker.delegate = self
+
+        present(imagePicker, animated: true, completion: nil)
+    }
 
     // MARK: Configure
 
