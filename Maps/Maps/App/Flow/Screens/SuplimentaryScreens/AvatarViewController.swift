@@ -31,7 +31,7 @@ class AvatarViewController: UIViewController, AlertShowable {
         return button
     }()
     private lazy var navigationBar: UINavigationBar = {
-        // Create navigation bar with navigation item to set its custom look and the title of the SignUp VC. For more explanations see notes for it in SignIn VC.
+        // Create navigation bar with navigation item to set its custom look and the title of the Avatar VC. For more explanations see notes for it in SignIn VC.
         let frame = CGRect(
             x: 0.0,
             y: 0.0,
@@ -70,14 +70,14 @@ class AvatarViewController: UIViewController, AlertShowable {
         // Animation when the signUpButton is tapped.
         selfieButton.shake()
 
-        // After alert Close pressed, dismiss SignUpVC screen to move to User VC screen
+        // After alert Close pressed, dismiss Avatar VC screen to move to User VC screen
         let handler: ((UIAlertAction) -> Void)? = { [weak self] _ in
             self?.dismiss(animated: true, completion: nil)
         }
 
         showAlert(
-            title: NSLocalizedString("signup", comment: ""),
-            message: NSLocalizedString("signupSuccess", comment: ""),
+            title: NSLocalizedString("avatar", comment: ""),
+            message: NSLocalizedString("makeAvatarSuccess", comment: ""),
             handler: handler,
             completion: nil
         )

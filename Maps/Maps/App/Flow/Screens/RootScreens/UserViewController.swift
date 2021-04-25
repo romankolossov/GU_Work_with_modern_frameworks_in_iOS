@@ -86,6 +86,17 @@ class UserViewController: UIViewController, AlertShowable, UsersInRealmErasable 
         // Erase realm users database.
         eraseUsersInRealm()
     }
+    
+    @objc private func createAvatar() {
+        let avatarViewController = AvatarViewController()
+        avatarViewController.modalPresentationStyle = .formSheet
+
+        navigationController?.present(
+            avatarViewController,
+            animated: true,
+            completion: nil
+        )
+    }
 
     // MARK: - Private methods
 
@@ -155,7 +166,13 @@ class UserViewController: UIViewController, AlertShowable, UsersInRealmErasable 
             target: self,
             action: #selector(changeUserData)
         )
-        navigationItem.rightBarButtonItems = [logoutItem, changeUserDataItem]
+        let createAvatarItem = UIBarButtonItem(
+            image: UIImage(systemName: "camera"),
+            style: .plain,
+            target: self,
+            action: #selector(createAvatar)
+        )
+        navigationItem.rightBarButtonItems = [logoutItem, changeUserDataItem, createAvatarItem]
     }
 
     private func addSubviews() {

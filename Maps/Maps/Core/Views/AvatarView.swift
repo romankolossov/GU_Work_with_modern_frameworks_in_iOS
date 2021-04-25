@@ -13,10 +13,13 @@ class AvatarView: UIView {
 
     // MARK: Subviews
 
-    let userImageView: UIImageView = {
+    lazy var userImageView: UIImageView = {
         let iv = UIImageView()
         iv.clipsToBounds = true
         iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.contentMode = .scaleAspectFill
+        iv.layer.cornerRadius = 30
+        iv.image = UIImage(named: "FerrariTestPicture")
         return iv
     }()
 
@@ -39,8 +42,6 @@ class AvatarView: UIView {
     }
 
     private func addSubviews() {
-        userImageView.layer.cornerRadius = self.safeAreaLayoutGuide.layoutFrame.height / 2
-
         addSubview(userImageView)
     }
 
