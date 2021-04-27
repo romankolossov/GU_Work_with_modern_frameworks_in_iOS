@@ -27,6 +27,7 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
     private(set) var route: GMSPolyline?
     private(set) var routePath: GMSMutablePath?
     private var marker: GMSMarker?
+    private var userAvatarImage: UIImage?
     private var drawingRoutePath: Bool = false
     private let coordinate = CLLocationCoordinate2D(
         latitude: 55.753215, longitude: 37.622504) // Moscow, Red square.
@@ -49,6 +50,11 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
 
         configureMap()
         configureMapStyle()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        userAvatarImage = PhotoStorageService.shared.retrieveImage(forKey: "avatar")
         // RxSwift, use for route path drawing.
         configureLocationManager()
     }
@@ -259,9 +265,8 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
                 let position = location.coordinate
                 // Add a marker on the map removing the previous one to make the marker move.
                 // Marker is moving with user avatar in it.
-                let image = UIImage(named: "FerrariTestPicture")
                 self?.removeMarker()
-                self?.addMarker(with: image, position: position)
+                self?.addMarker(with: self?.userAvatarImage, position: position)
                 /*
                  // Case of adding an icon to marker as resized image.
                  self?.marker = GMSMarker(position: position)
@@ -351,7 +356,7 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
     }
 
     private func configureMapStyle() {
-           let style = "[" +
+        let style: String = "[" +
                "  {" +
                "    \"featureType\": \"all\"," +
                "    \"elementType\": \"geometry\"," +

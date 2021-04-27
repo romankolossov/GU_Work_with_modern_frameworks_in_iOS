@@ -46,6 +46,7 @@
 		C8A789CD261478EA002C24B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8A789CC261478EA002C24B4 /* Assets.xcassets */; };
 		C8A789D0261478EA002C24B4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8A789CE261478EA002C24B4 /* LaunchScreen.storyboard */; };
 		C8A81628263262A700A9C962 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A81627263262A700A9C962 /* NotificationManager.swift */; };
+		C8B3E2AF26365CCF00630E2B /* PhotoStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B3E2AE26365CCF00630E2B /* PhotoStorageService.swift */; };
 		C8B573002621D0E0001616DE /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B572FF2621D0E0001616DE /* PasswordViewController.swift */; };
 		C8CB74E5261F736A00827779 /* NibNameLoadable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8CB74E4261F736A00827779 /* NibNameLoadable+Extension.swift */; };
 		C8EC58EE2624AFEA004CCCC9 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EC58ED2624AFEA004CCCC9 /* AppRouter.swift */; };
@@ -98,6 +99,7 @@
 		C8A789CF261478EA002C24B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C8A789D1261478EA002C24B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8A81627263262A700A9C962 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		C8B3E2AE26365CCF00630E2B /* PhotoStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStorageService.swift; sourceTree = "<group>"; };
 		C8B572FF2621D0E0001616DE /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
 		C8CB74E4261F736A00827779 /* NibNameLoadable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NibNameLoadable+Extension.swift"; sourceTree = "<group>"; };
 		C8EC58ED2624AFEA004CCCC9 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 				C8A816262632627900A9C962 /* NotificationManager */,
 				C8C9B1B32628B9D400E3A63F /* LocationManager */,
 				C85CE04B261B79720099AB60 /* RealmManager */,
+				C8B3E2AD26365C7800630E2B /* PhotoStorageService */,
 			);
 			path = BusinessLogic;
 			sourceTree = "<group>";
@@ -344,6 +347,14 @@
 				C8A81627263262A700A9C962 /* NotificationManager.swift */,
 			);
 			path = NotificationManager;
+			sourceTree = "<group>";
+		};
+		C8B3E2AD26365C7800630E2B /* PhotoStorageService */ = {
+			isa = PBXGroup;
+			children = (
+				C8B3E2AE26365CCF00630E2B /* PhotoStorageService.swift */,
+			);
+			path = PhotoStorageService;
 			sourceTree = "<group>";
 		};
 		C8C9B1B32628B9D400E3A63F /* LocationManager */ = {
@@ -509,6 +520,7 @@
 				C85A72142616420C00A42DA6 /* Logger+Extension.swift in Sources */,
 				C88C5ACF262064FA007ECAB7 /* SignInViewController.swift in Sources */,
 				C84B8BFF261CA24C0027AD17 /* AlertShowable+Extension.swift in Sources */,
+				C8B3E2AF26365CCF00630E2B /* PhotoStorageService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

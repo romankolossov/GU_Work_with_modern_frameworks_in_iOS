@@ -21,9 +21,11 @@ extension AvatarViewController: UIImagePickerControllerDelegate & UINavigationCo
             guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
                 return
             }
+            PhotoStorageService.shared.saveImage(image: image, forKey: "avatar")
             publicAvatarView.userImageView.image = image
             return
         }
+        PhotoStorageService.shared.saveImage(image: image, forKey: "avatar")
         publicAvatarView.userImageView.image = image
 
         picker.dismiss(animated: true, completion: nil)

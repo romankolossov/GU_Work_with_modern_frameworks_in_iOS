@@ -19,7 +19,7 @@ class AvatarView: UIView {
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFill
         iv.layer.cornerRadius = 30
-        iv.image = UIImage(named: "FerrariTestPicture")
+        iv.image = PhotoStorageService.shared.retrieveImage(forKey: "avatar")
         return iv
     }()
 
