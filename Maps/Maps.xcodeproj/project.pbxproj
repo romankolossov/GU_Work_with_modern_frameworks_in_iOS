@@ -46,6 +46,7 @@
 		C8A789CD261478EA002C24B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8A789CC261478EA002C24B4 /* Assets.xcassets */; };
 		C8A789D0261478EA002C24B4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8A789CE261478EA002C24B4 /* LaunchScreen.storyboard */; };
 		C8A81628263262A700A9C962 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8A81627263262A700A9C962 /* NotificationManager.swift */; };
+		C8AD29442637B90000514EA1 /* MapStyleJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8AD29432637B90000514EA1 /* MapStyleJSON.swift */; };
 		C8B3E2AF26365CCF00630E2B /* PhotoStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B3E2AE26365CCF00630E2B /* PhotoStorageService.swift */; };
 		C8B573002621D0E0001616DE /* PasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B572FF2621D0E0001616DE /* PasswordViewController.swift */; };
 		C8CB74E5261F736A00827779 /* NibNameLoadable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8CB74E4261F736A00827779 /* NibNameLoadable+Extension.swift */; };
@@ -99,6 +100,7 @@
 		C8A789CF261478EA002C24B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C8A789D1261478EA002C24B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8A81627263262A700A9C962 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		C8AD29432637B90000514EA1 /* MapStyleJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapStyleJSON.swift; sourceTree = "<group>"; };
 		C8B3E2AE26365CCF00630E2B /* PhotoStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStorageService.swift; sourceTree = "<group>"; };
 		C8B572FF2621D0E0001616DE /* PasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewController.swift; sourceTree = "<group>"; };
 		C8CB74E4261F736A00827779 /* NibNameLoadable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NibNameLoadable+Extension.swift"; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 			children = (
 				C85CE050261B7BD20099AB60 /* RoutePathRealm.swift */,
 				C88C5AB6261F8232007ECAB7 /* UserRealm.swift */,
+				C8AD29432637B90000514EA1 /* MapStyleJSON.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -500,6 +503,7 @@
 				C88C5AC2262060EC007ECAB7 /* SignUpView.swift in Sources */,
 				C88C5AB7261F8232007ECAB7 /* UserRealm.swift in Sources */,
 				C84480F626219A00007DEAC8 /* UsersInRealmErasable.swift in Sources */,
+				C8AD29442637B90000514EA1 /* MapStyleJSON.swift in Sources */,
 				C88C5AC5262061DE007ECAB7 /* ShakableViews.swift in Sources */,
 				C8557E2D2634BCB50099FF7C /* AvatarView.swift in Sources */,
 				C8F217D2261F267900457B1F /* TabBarController.swift in Sources */,

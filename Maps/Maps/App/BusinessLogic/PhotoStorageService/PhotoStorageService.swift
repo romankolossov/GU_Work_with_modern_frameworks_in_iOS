@@ -24,11 +24,13 @@ class PhotoStorageService {
         }
         let url = documentURL.appendingPathComponent(pathName, isDirectory: true)
 
-        if !FileManager.default.fileExists(atPath: url.path) {
+        guard FileManager.default.fileExists(atPath: url.path) else {
             try? FileManager.default.createDirectory(
                 at: url,
                 withIntermediateDirectories: true,
-                attributes: nil)
+                attributes: nil
+            )
+            return pathName
         }
         return pathName
     }()
