@@ -9,9 +9,11 @@ import UIKit
 
 class PhotoStorageService {
 
-    // MARK: - Private properties
+    // MARK: - Public properties
 
     static let shared = PhotoStorageService()
+    
+    // MARK: - Private properties
 
     // Create images files dirrectory.
 

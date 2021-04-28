@@ -48,7 +48,7 @@ class NotificationManager {
 
     // MARK: - Private methods
 
-    fileprivate func requestAutorisation() {
+    private func requestAutorisation() {
         let options: UNAuthorizationOptions = [.alert, .sound, .badge]
 
         notificationCenter.requestAuthorization(
@@ -66,7 +66,7 @@ class NotificationManager {
         }
     }
 
-    fileprivate func createNotificationRequest(
+    private func createNotificationRequest(
         with identifier: String,
         content: UNNotificationContent,
         trigger: UNNotificationTrigger
@@ -82,7 +82,7 @@ class NotificationManager {
         }
     }
 
-    fileprivate func createNotificationContent() -> UNMutableNotificationContent {
+    private func createNotificationContent() -> UNMutableNotificationContent {
         let content = UNMutableNotificationContent()
 
         content.badge = 3
@@ -94,7 +94,7 @@ class NotificationManager {
         return content
     }
 
-    fileprivate func createNotificationTrigger() -> UNNotificationTrigger {
+    private func createNotificationTrigger() -> UNNotificationTrigger {
         UNTimeIntervalNotificationTrigger(timeInterval: 8, repeats: false)
     }
 

@@ -24,9 +24,9 @@ class AvatarViewController: UIViewController, AlertShowable {
         return view
     }()
 
-    private lazy var selfieButton: ShakableButton = {
+    private lazy var avatarMakeButton: ShakableButton = {
         let button = ShakableButton()
-        button.setTitle(NSLocalizedString("makeSelfie", comment: ""), for: .normal)
+        button.setTitle(NSLocalizedString("makeAvatar", comment: ""), for: .normal)
         button.setTitleColor(.buttonTitleColor, for: .normal)
         button.setTitleColor(.buttonTitleColorWhenHighlighted, for: .highlighted)
         button.backgroundColor = .buttonBackgroundColor
@@ -66,22 +66,26 @@ class AvatarViewController: UIViewController, AlertShowable {
 
         // MARK: Targets
 
-        selfieButton.addTarget(self, action: #selector(makeSelfie), for: .touchUpInside)
+        avatarMakeButton.addTarget(self, action: #selector(makeAvatar), for: .touchUpInside)
     }
 
     // MARK: - Actions
 
     // MARK: Make selfie
 
-    @objc private func makeSelfie() {
+    @objc private func makeAvatar() {
         // Animation when the signUpButton is tapped.
-        selfieButton.shake()
+        avatarMakeButton.shake()
+        
+        // Create and show an alert to choose the way of creation an avatar via the picker controller.
 
         let alertController = UIAlertController(
             title: NSLocalizedString("avatarAction", comment: ""),
             message: NSLocalizedString("avatarActionMessage ", comment: "Choose action to create avatat"),
             preferredStyle: .actionSheet
         )
+        alertController.view.tintColor = .alertViewTintColor
+
         let photoAction = UIAlertAction(
             title: NSLocalizedString("choosePhoto", comment: "Choose a photo from the gallery"),
             style: .default) { [weak self] _ in
@@ -102,19 +106,6 @@ class AvatarViewController: UIViewController, AlertShowable {
         alertController.addAction(cancelAction)
 
         present(alertController, animated: true, completion: nil)
-
-        // After alert Close pressed, dismiss Avatar VC screen to move to User VC screen
-//        let handler: ((UIAlertAction) -> Void)? = { [weak self] _ in
-//            self?.dismiss(animated: true, completion: nil)
-//        }
-//
-//        showAlert(
-//            title: NSLocalizedString("avatar", comment: ""),
-//            message: NSLocalizedString("makeAvatarSuccess", comment: ""),
-//            handler: handler,
-//            completion: nil
-//        )
-
     }
 
     // MARK: - Private methods
@@ -143,7 +134,7 @@ class AvatarViewController: UIViewController, AlertShowable {
 
     private func addSubviews() {
         view.addSubview(avatarView)
-        view.addSubview(selfieButton)
+        view.addSubview(avatarMakeButton)
         view.addSubview(navigationBar)
     }
 
@@ -154,13 +145,13 @@ class AvatarViewController: UIViewController, AlertShowable {
             avatarView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: .navigationBarHeight),
             avatarView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
             avatarView.widthAnchor.constraint(equalTo: safeArea.widthAnchor),
-            avatarView.bottomAnchor.constraint(equalTo: selfieButton.topAnchor)
+            avatarView.bottomAnchor.constraint(equalTo: avatarMakeButton.topAnchor)
         ]
         let selfieButtonConstraints = [
-            selfieButton.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
-            selfieButton.widthAnchor.constraint(equalTo: safeArea.widthAnchor),
-            selfieButton.heightAnchor.constraint(equalToConstant: .buttonHeight),
-            selfieButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
+            avatarMakeButton.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            avatarMakeButton.widthAnchor.constraint(equalTo: safeArea.widthAnchor),
+            avatarMakeButton.heightAnchor.constraint(equalToConstant: .buttonHeight),
+            avatarMakeButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ]
         NSLayoutConstraint.activate(avatarViewConstraints)
         NSLayoutConstraint.activate(selfieButtonConstraints)
