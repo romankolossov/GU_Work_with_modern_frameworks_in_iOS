@@ -76,12 +76,12 @@ class AvatarViewController: UIViewController, AlertShowable {
     @objc private func makeAvatar() {
         // Animation when the signUpButton is tapped.
         avatarMakeButton.shake()
-        
+
         // Create and show an alert to choose the way of creation an avatar via the picker controller.
 
         let alertController = UIAlertController(
             title: NSLocalizedString("avatarAction", comment: ""),
-            message: NSLocalizedString("avatarActionMessage ", comment: "Choose action to create avatat"),
+            message: NSLocalizedString("avatarActionMessage ", comment: "Choose an action to create avatar"),
             preferredStyle: .actionSheet
         )
         alertController.view.tintColor = .alertViewTintColor

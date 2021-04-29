@@ -138,11 +138,11 @@
 			children = (
 				C85A72132616420C00A42DA6 /* Logger+Extension.swift */,
 				C85A72172616433500A42DA6 /* CLLocationCoordinate2D+Extension.swift */,
+				C88C5ACA262063A0007ECAB7 /* CGFloat+Extension.swift */,
 				C8F217D8261F2BCC00457B1F /* UIColor+Extension.swift */,
 				C86774C4261F4CDD00EE93DE /* UIFont+Extension.swift */,
-				C88C5ACA262063A0007ECAB7 /* CGFloat+Extension.swift */,
-				C8EC58F32624C272004CCCC9 /* UIViewController+Extension.swift */,
 				C88A2ECD2635CB39008A2FAC /* UIImage+Extension.swift */,
+				C8EC58F32624C272004CCCC9 /* UIViewController+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -161,8 +161,8 @@
 				C84B8BFE261CA24C0027AD17 /* AlertShowable+Extension.swift */,
 				C84480F526219A00007DEAC8 /* UsersInRealmErasable.swift */,
 				C85CE03B261B1EB10099AB60 /* ReverseGeocodeLoggable+Extension.swift */,
-				C8CB74E4261F736A00827779 /* NibNameLoadable+Extension.swift */,
 				C88C5AC726206243007ECAB7 /* Shakable+Extension.swift */,
+				C8CB74E4261F736A00827779 /* NibNameLoadable+Extension.swift */,
 				C8EC58F02624B079004CCCC9 /* AppRouterProtocol.swift */,
 			);
 			path = Protocols;
@@ -280,8 +280,8 @@
 				C88C5ABA26203F25007ECAB7 /* UserView.swift */,
 				C88C5ABE26206091007ECAB7 /* SignInView.swift */,
 				C88C5AC1262060EC007ECAB7 /* SignUpView.swift */,
-				C88C5AC4262061DE007ECAB7 /* ShakableViews.swift */,
 				C8557E2C2634BCB50099FF7C /* AvatarView.swift */,
+				C88C5AC4262061DE007ECAB7 /* ShakableViews.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

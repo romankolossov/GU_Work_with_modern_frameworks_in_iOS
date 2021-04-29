@@ -12,7 +12,7 @@ class PhotoStorageService {
     // MARK: - Public properties
 
     static let shared = PhotoStorageService()
-    
+
     // MARK: - Private properties
 
     // Create images files dirrectory.
