@@ -9,6 +9,10 @@ import UIKit
 
 extension CGFloat {
 
+    // MARK: - Map VC
+
+    static let avatarViewSize: CGFloat = 60.0
+
     // MARK: - SignIn and SignUp VCs
 
     static let textFieldCornerRadius: CGFloat = 6.8
@@ -16,6 +20,10 @@ extension CGFloat {
     // MARK: Navigation bar
 
     static let navigationBarHeight: CGFloat = 56.0
+
+    // MARK: - Avatar view
+
+    static let userImageViewCornerRadius: CGFloat = avatarViewSize / 2
 
     // MARK: Buttons
 

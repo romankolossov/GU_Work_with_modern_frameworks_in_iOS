@@ -323,7 +323,7 @@ class MapViewController: UIViewController, ReverseGeocodeLoggable, AlertShowable
     // Add a marker on the map with round image view in it to show user avatar in the view.
 
     private func addMarker(with image: UIImage?, position: CLLocationCoordinate2D) {
-        let rect = CGRect(x: 0.0, y: 0.0, width: 60.0, height: 60.0)
+        let rect = CGRect(x: 0.0, y: 0.0, width: .avatarViewSize, height: .avatarViewSize)
         let avatarView = UIView(frame: rect)
         let userImageView = UIImageView()
 

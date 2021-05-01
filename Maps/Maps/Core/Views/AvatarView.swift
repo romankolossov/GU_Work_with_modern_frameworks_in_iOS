@@ -18,7 +18,7 @@ class AvatarView: UIView {
         iv.clipsToBounds = true
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFill
-        iv.layer.cornerRadius = 30
+        iv.layer.cornerRadius = .userImageViewCornerRadius
         iv.image = PhotoStorageService.shared.retrieveImage(forKey: "avatar")
         return iv
     }()
