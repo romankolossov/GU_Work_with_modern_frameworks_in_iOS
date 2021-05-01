@@ -9,3 +9,11 @@
 "CFBundleDisplayName" = "Route tracker";
 
 "CFBundleName" = "RouteTracker";
+
+"NSLocationWhenInUseUsageDescription" = "App nedds access to geolocation services on Your device in order to work properly. Geolocation will be used when the app is running only";
+
+"NSLocationAlwaysandWhenInUseUsageDescription" = "App nedds access to geolocation services on Your device in order to work properly. Geolocation will be used always";
+
+"NSCameraUsageDescription" = "App nedds access to the camera on Your device in order to work properly for avatar make";
+
+"NSPhotoLibraryUsageDescription" = "App nedds access to the photo library on Your device in order to work properly for avatar make";

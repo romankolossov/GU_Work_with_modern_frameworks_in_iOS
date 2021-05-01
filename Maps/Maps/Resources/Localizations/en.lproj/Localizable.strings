@@ -58,6 +58,15 @@
 "passwordSaveFailureWithEmtyTextField" = "Password save failure. Please, check that password field is not empty";
 "passwordSaveSuccess" = "Password was saved";
 
+// Avatar VC
+
+"avatar" = "Avatar";
+"makeAvatar" = "Make avatar";
+"avatarAction" = "Avatar action";
+"avatarActionMessage " = "Choose an action to create avatar";
+"choosePhoto" = "Choose a photo from the gallery";
+"makeSelfie" = "Make selfie";
+
 // Alerts
 
 "close" = "Close";

@@ -49,6 +49,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         NotificationManager.shared.registerForNotifications()
 
+        // MARK: Setup the default avatar.
+
+        guard let image = UIImage(named: "FerrariTestPicture") else {
+            return true
+        }
+        PhotoStorageService.shared.saveImage(image: image, forKey: "avatar")
+
         return true
     }
 

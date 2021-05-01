@@ -58,6 +58,15 @@
 "passwordSaveFailureWithEmtyTextField" = "Перезапись пароля не выполнена. Пожалуйста, проверьте что поле пароля заполнено";
 "passwordSaveSuccess" = "Пароль был перезаписан";
 
+// Avatar VC
+
+"avatar" = "Аватар";
+"makeAvatar" = "Создать аватар";
+"avatarAction" = "Аватар";
+"avatarActionMessage " = "Выберите действие для создания аватара";
+"choosePhoto" = "Выберите фото из фотогалереи";
+"makeSelfie" = "Сделать селфи";
+
 // Alerts
 
 "close" = "Закрыть";

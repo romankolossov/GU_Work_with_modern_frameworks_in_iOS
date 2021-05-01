@@ -7,7 +7,7 @@
 
 import UIKit
 
-class UserViewController: UIViewController, AlertShowable, UsersInRealmErasable {
+class UserViewController: UIViewController, UsersInRealmErasable {
 
     // MARK: - Private properties
 
@@ -87,6 +87,17 @@ class UserViewController: UIViewController, AlertShowable, UsersInRealmErasable 
         eraseUsersInRealm()
     }
 
+    @objc private func createAvatar() {
+        let avatarViewController = AvatarViewController()
+        avatarViewController.modalPresentationStyle = .formSheet
+
+        navigationController?.present(
+            avatarViewController,
+            animated: true,
+            completion: nil
+        )
+    }
+
     // MARK: - Private methods
 
     // MARK: Configure
@@ -155,7 +166,13 @@ class UserViewController: UIViewController, AlertShowable, UsersInRealmErasable 
             target: self,
             action: #selector(changeUserData)
         )
-        navigationItem.rightBarButtonItems = [logoutItem, changeUserDataItem]
+        let createAvatarItem = UIBarButtonItem(
+            image: UIImage(systemName: "camera"),
+            style: .plain,
+            target: self,
+            action: #selector(createAvatar)
+        )
+        navigationItem.rightBarButtonItems = [logoutItem, changeUserDataItem, createAvatarItem]
     }
 
     private func addSubviews() {
